@@ -4,6 +4,7 @@ import "dotenv/config.js";
 import { getAccount } from "./account";
 import { reqFaucetSui, showOwnership } from './utils';
 import { mergeCoinParts, sendSuiCoins } from './objects';
+import { buildAndPublishPackage, moveCall } from './package';
 
 // connect to Devnet
 const provider = new JsonRpcProvider(devnetConnection);
@@ -31,6 +32,13 @@ async function main() {
     await showOwnership(account.address, provider);
     await showOwnership(toAddress, provider);
 
+    // publish package
+    const packageId = await buildAndPublishPackage(account, "hello_world", provider);
+    console.log('Package ID:', packageId);
+
+    // mint object
+    const result = await moveCall(account, packageId, "hello_world::mint", provider);
+    console.log(result);
 }
 
 main().then().catch((err) => console.error(err))
