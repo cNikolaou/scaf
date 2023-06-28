@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from "@mysten/sui.js"
+import { JsonRpcProvider, FaucetRateLimitError } from "@mysten/sui.js"
 
 function objectData(obj: {objectId: string, version: string} | undefined): string {
     if (obj) {
@@ -49,5 +49,14 @@ export async function showOwnership(address: string, provider: JsonRpcProvider) 
 }
 
 export async function reqFaucetSui(toAddress: string, provider: JsonRpcProvider) {
-    await provider.requestSuiFromFaucet(toAddress);
+
+    try {
+        await provider.requestSuiFromFaucet(toAddress);
+    } catch (error) {
+        if (error instanceof FaucetRateLimitError) {
+            console.log('To many faucet requests. Try later. Skipping for now');
+        } else {
+            console.log('Unexpected error during faucet request:', error)
+        }
+    }
 }
