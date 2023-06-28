@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/cNikolaou/scaf/issues"
   },
-  "homepage": "https://github.com/cNikolaou/scaf#readme"
+  "homepage": "https://github.com/cNikolaou/scaf#readme",
+  "devDependencies": {
+    "typescript": "^5.1.5"
+  }
 }
