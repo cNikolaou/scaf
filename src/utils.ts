@@ -1,4 +1,4 @@
-import { JsonRpcProvider, FaucetRateLimitError } from "@mysten/sui.js"
+import { JsonRpcProvider, FaucetRateLimitError, SuiObjectChange } from "@mysten/sui.js"
 
 function objectData(obj: {objectId: string, version: string} | undefined): string {
     if (obj) {
@@ -59,4 +59,34 @@ export async function reqFaucetSui(toAddress: string, provider: JsonRpcProvider)
             console.log('Unexpected error during faucet request:', error)
         }
     }
+}
+
+export function showObjectChanges(txnObjectChanges: SuiObjectChange[]) {
+
+    const changes = txnObjectChanges.map((change) => {
+
+        let outputString =  ` - Type: ${change.type}`;
+
+        if (change.type !== 'published') {
+            outputString += ` , ID: ${change.objectId}`
+
+            if (change.type === 'created' || change.type === 'mutated') {
+                let owner;
+                if (typeof change.owner === 'string') {
+                    owner = change.owner;
+                } else if ('AddressOwner' in change.owner) {
+                    owner = `Account Address (${change.owner.AddressOwner})`;
+                } else if ('ObjectOwner' in change.owner) {
+                    owner = `Account Address (${change.owner.ObjectOwner})`;
+                }
+                outputString += ` , Owner: ${owner}`
+            }
+        } else {
+            outputString += ` , Package ID: ${change.packageId}`
+        }
+        return outputString;
+    })
+
+    console.log('--- Transaction Effects ---');
+    console.log(changes.join('\n'))
 }

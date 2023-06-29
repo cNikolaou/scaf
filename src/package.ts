@@ -3,6 +3,7 @@ import { execSync } from "child_process";
 import { JsonRpcProvider, TransactionBlock, RawSigner } from "@mysten/sui.js"
 
 import { Account } from "./account"
+import { showObjectChanges } from "./utils"
 
 type BuildOutput = {
     modules: [string]
@@ -48,9 +49,9 @@ export function buildPackage(packageName: string, showBuildOutput: boolean = fal
     }
 }
 
-
 export async function publishPackage(publisher: Account, modules: [string],
-                                     dependencies: [string], provider: JsonRpcProvider) {
+                                     dependencies: [string], provider: JsonRpcProvider,
+                                     showPublishOutput: boolean = false) {
 
     const tx = new TransactionBlock();
     const [up] = tx.publish({
@@ -79,6 +80,11 @@ export async function publishPackage(publisher: Account, modules: [string],
             showBalanceChanges: false,
         },
     })
+
+    if (showPublishOutput) {
+        // console.log(txn);
+        showObjectChanges(txn?.objectChanges)
+    }
 
     const createdObject = txn.objectChanges?.find((change) => change.type === 'published');
     if (createdObject && createdObject.type === 'published') {
