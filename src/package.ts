@@ -9,20 +9,43 @@ type BuildOutput = {
     dependencies: [string]
 }
 
+class BuildError extends Error {
+    constructor(message?: string) {
+        super(message);
+        this.name = "BuildError";
+    }
+}
+
+class PublishError extends Error {
+    constructor(message?: string) {
+        super(message);
+        this.name = "PublishError";
+    }
+}
+
 export function buildPackage(packageName: string, showBuildOutput: boolean = false) {
 
-    const { modules, dependencies }: BuildOutput = JSON.parse(
-        execSync(
-            `sui move build --dump-bytecode-as-base64 --path "$(pwd)"/packages/${packageName}`,
-            { encoding: 'utf-8' }
+    try {
+        const { modules, dependencies }: BuildOutput = JSON.parse(
+            execSync(
+                `sui move build --dump-bytecode-as-base64 --path "$(pwd)"/packages/${packageName}`,
+                { encoding: 'utf-8' }
+            )
         )
-    )
-    if (showBuildOutput) {
-        console.log(modules)
-        console.log(dependencies)
-    }
 
-    return [modules, dependencies]
+        if (showBuildOutput) {
+            console.log(modules)
+            console.log(dependencies)
+        }
+
+        return [modules, dependencies]
+
+    } catch (error) {
+        // show the compilation error message to locate and fix the issue(s)
+        throw new BuildError(
+            "The following errors where encountering while building the package:\n\n"+ error.stdout
+        )
+    }
 }
 
 
@@ -60,17 +83,17 @@ export async function publishPackage(publisher: Account, modules: [string],
     const createdObject = txn.objectChanges?.find((change) => change.type === 'published');
     if (createdObject && createdObject.type === 'published') {
         const packageId = createdObject?.packageId;
-        return packageId
+        return packageId;
     }
 
-    return "ERROR: Package not published"
+    throw new PublishError("Package not published");
 }
 
 export async function buildAndPublishPackage(publisher: Account, packageName: string, provider: JsonRpcProvider) {
 
-    const [modules, dependencies] = buildPackage(packageName)
+    const [modules, dependencies] = buildPackage(packageName);
 
-    return publishPackage(publisher, modules, dependencies, provider)
+    return publishPackage(publisher, modules, dependencies, provider);
 
 }
 
