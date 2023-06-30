@@ -26,35 +26,50 @@ class PublishError extends Error {
     }
 }
 
-class PublishedData {
+class ObjectChanges {
+    /**
+     * Class represents object changes from a transaction.
+     */
 
     // Properties
-    packageId: string = "";
-    published: SuiObjectChangePublished;
+    published: SuiObjectChangePublished[];
     created: SuiObjectChangeCreated[];
     mutated: SuiObjectChangeMutated[];
 
     constructor(objectChanges: SuiObjectChange[]) {
+        // Find all the objects that were published
+        this.published = objectChanges?.filter(
+            (change): change is SuiObjectChangePublished => change.type === 'published'
+        );
 
-        // Find the published object; the published object is the published
-        // package that has a PackageID
-        const publishedObject = objectChanges?.find((change) => change.type === 'published');
-        if (publishedObject && publishedObject.type === 'published') {
-            this.packageId = publishedObject?.packageId;
-            this.published = publishedObject;
-        }
-
-        // Find all the objects that were created and add them to the array
-        const createdObjects = objectChanges?.filter(
+        // Find all the objects that were created
+        this.created = objectChanges?.filter(
             (change): change is SuiObjectChangeCreated => change.type === 'created'
         );
-        this.created = createdObjects;
 
-        // Find all the objects that were mutated and add them to the array
-        const mutatedObjects = objectChanges?.filter(
+        // Find all the objects that were mutated
+        this.mutated = objectChanges?.filter(
             (change): change is SuiObjectChangeMutated => change.type === 'mutated'
-        )
-        this.mutated = mutatedObjects;
+        );
+    }
+}
+
+class PublishedData extends ObjectChanges {
+    /**
+     * Class represents object changes from a transaction that publisehd
+     * a package.
+     */
+
+    packageId: string = "";
+
+    constructor(objectChanges: SuiObjectChange[]) {
+
+        super(objectChanges)
+
+        // Store the ID of the published package object
+        if (this.published.length > 0) {
+            this.packageId = this.published[0].packageId;
+        }
     }
 }
 
