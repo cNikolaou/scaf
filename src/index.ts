@@ -33,11 +33,11 @@ async function main() {
     await showOwnership(toAddress, provider);
 
     // publish package
-    const packageId = await buildAndPublishPackage(account, "hello_world", provider);
-    console.log('Package ID:', packageId);
+    const publishedData = await buildAndPublishPackage(account, "hello_world", provider);
+    console.log('Package ID:', publishedData);
 
     // mint object
-    const result = await moveCall(account, packageId, "hello_world::mint", provider);
+    const result = await moveCall(account, publishedData.packageId, "hello_world", "mint", provider);
     console.log(result);
 }
 

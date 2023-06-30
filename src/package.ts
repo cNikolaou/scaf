@@ -138,12 +138,12 @@ export async function buildAndPublishPackage(publisher: Account, packageName: st
 }
 
 export async function moveCall(caller: Account, packageId: string,
-                                targetFunction: `${string}::${string}`,
+                                module: string, targetFunction: string,
                                 provider: JsonRpcProvider, args: [string?] = []) {
 
     const tx = new TransactionBlock();
     tx.moveCall({
-        target: `${packageId}::${targetFunction}`,
+        target: `${packageId}::${module}::${targetFunction}`,
         arguments: args.length > 0 ? args.map(arg => tx.pure(arg)) : [],
     });
 
