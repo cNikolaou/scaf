@@ -1,6 +1,8 @@
 import { execSync } from "child_process";
 
-import { JsonRpcProvider, TransactionBlock, RawSigner } from "@mysten/sui.js"
+import { JsonRpcProvider, TransactionBlock, RawSigner, SuiObjectChange,
+    SuiObjectChangePublished, SuiObjectChangeCreated, SuiObjectChangeMutated
+} from "@mysten/sui.js"
 
 import { Account } from "./account"
 import { showObjectChanges } from "./utils"
@@ -21,6 +23,38 @@ class PublishError extends Error {
     constructor(message?: string) {
         super(message);
         this.name = "PublishError";
+    }
+}
+
+class PublishedData {
+
+    // Properties
+    packageId: string = "";
+    published: SuiObjectChangePublished;
+    created: SuiObjectChangeCreated[];
+    mutated: SuiObjectChangeMutated[];
+
+    constructor(objectChanges: SuiObjectChange[]) {
+
+        // Find the published object; the published object is the published
+        // package that has a PackageID
+        const publishedObject = objectChanges?.find((change) => change.type === 'published');
+        if (publishedObject && publishedObject.type === 'published') {
+            this.packageId = publishedObject?.packageId;
+            this.published = publishedObject;
+        }
+
+        // Find all the objects that were created and add them to the array
+        const createdObjects = objectChanges?.filter(
+            (change): change is SuiObjectChangeCreated => change.type === 'created'
+        );
+        this.created = createdObjects;
+
+        // Find all the objects that were mutated and add them to the array
+        const mutatedObjects = objectChanges?.filter(
+            (change): change is SuiObjectChangeMutated => change.type === 'mutated'
+        )
+        this.mutated = mutatedObjects;
     }
 }
 
@@ -86,20 +120,20 @@ export async function publishPackage(publisher: Account, modules: [string],
         showObjectChanges(txn?.objectChanges)
     }
 
-    const createdObject = txn.objectChanges?.find((change) => change.type === 'published');
-    if (createdObject && createdObject.type === 'published') {
-        const packageId = createdObject?.packageId;
-        return packageId;
+    const publishedData = new PublishedData(txn?.objectChanges)
+
+    if (publishedData.packageId === "") {
+        throw new PublishError("Package not published");
     }
 
-    throw new PublishError("Package not published");
+    return publishedData;
 }
 
-export async function buildAndPublishPackage(publisher: Account, packageName: string, provider: JsonRpcProvider) {
+export async function buildAndPublishPackage(publisher: Account, packageName: string, provider: JsonRpcProvider, showPublishOutput: boolean = false) {
 
     const [modules, dependencies] = buildPackage(packageName);
 
-    return publishPackage(publisher, modules, dependencies, provider);
+    return publishPackage(publisher, modules, dependencies, provider, showPublishOutput);
 
 }
 
