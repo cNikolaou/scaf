@@ -1,9 +1,9 @@
 import { JsonRpcProvider, devnetConnection } from '@mysten/sui.js';
-import "dotenv/config.js";
+import 'dotenv/config.js';
 
-import { getAccount } from "./account";
+import { getAccount } from './account';
 import { reqFaucetSui, showOwnership } from './utils';
-import { mergeCoinParts, sendSuiCoins } from './objects';
+import { getObjectId, mergeCoinParts, sendSuiCoins } from './objects';
 import { buildAndPublishPackage, moveCall } from './package';
 
 // connect to Devnet
@@ -14,7 +14,7 @@ async function main() {
     console.log('RPC API Version:', currentRpcApiVersion);
 
     const account = getAccount(process.env.SEED, process.env.SCHEMA);
-    console.log('Account Address:', account.address)
+    console.log('Account Address:', account.address);
 
     // request Sui coins from the faucet (two times to create two
     // different coins)
@@ -33,11 +33,17 @@ async function main() {
     await showOwnership(toAddress, provider);
 
     // publish package
-    const publishedData = await buildAndPublishPackage(account, "hello_world", provider);
+    const publishedData = await buildAndPublishPackage(account, 'hello_world', provider);
     console.log('Package ID:', publishedData);
 
     // mint object
-    const result = await moveCall(account, publishedData.packageId, "hello_world", "mint", provider);
+    const result = await moveCall(
+        account,
+        publishedData.packageId,
+        'hello_world',
+        'mint',
+        provider,
+    );
     console.log(result);
 }
 
