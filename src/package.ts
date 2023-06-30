@@ -154,7 +154,7 @@ export async function buildAndPublishPackage(publisher: Account, packageName: st
 
 export async function moveCall(caller: Account, packageId: string,
                                 module: string, targetFunction: string,
-                                provider: JsonRpcProvider, args: [string?] = []) {
+                                provider: JsonRpcProvider, args: string[] = []) {
 
     const tx = new TransactionBlock();
     tx.moveCall({
