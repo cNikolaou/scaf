@@ -37,12 +37,17 @@ class ObjectChanges {
      * Class represents object changes from a transaction.
      */
 
-    // Properties
+    // Digest of the block with the object changes tracked by objects of the class
+    blockDigest: string;
+
+    // Arrays with the object changes in the block
     published: SuiObjectChangePublished[];
     created: SuiObjectChangeCreated[];
     mutated: SuiObjectChangeMutated[];
 
-    constructor(objectChanges: SuiObjectChange[]) {
+    constructor(blockDigest: string, objectChanges: SuiObjectChange[]) {
+        this.blockDigest = blockDigest;
+
         // Find all the objects that were published
         this.published = objectChanges?.filter(
             (change): change is SuiObjectChangePublished => change.type === 'published',
@@ -68,8 +73,8 @@ class PublishedData extends ObjectChanges {
 
     packageId: string = '';
 
-    constructor(objectChanges: SuiObjectChange[]) {
-        super(objectChanges);
+    constructor(blockDigest: string, objectChanges: SuiObjectChange[]) {
+        super(blockDigest, objectChanges);
 
         // Store the ID of the published package object
         if (this.published.length > 0) {
@@ -142,7 +147,7 @@ export async function publishPackage(
         showObjectChanges(txn?.objectChanges);
     }
 
-    const publishedData = new PublishedData(txn?.objectChanges);
+    const publishedData = new PublishedData(txn.digest, txn?.objectChanges);
 
     if (publishedData.packageId === '') {
         throw new PublishError('Package not published');
