@@ -1,50 +1,22 @@
-import { JsonRpcProvider, devnetConnection } from '@mysten/sui.js';
-import 'dotenv/config.js';
+// Entry point used to select which module to load and run it's `main()`
+// function.
 
-import { getAccount } from './account';
-import { reqFaucetSui, showOwnership } from './utils';
-import { getObjectId, mergeCoinParts, sendSuiCoins } from './objects';
-import { buildAndPublishPackage, moveCall } from './package';
+async function scriptRun() {
+    const fileName = process.argv[2];
 
-// connect to Devnet
-const provider = new JsonRpcProvider(devnetConnection);
-
-async function main() {
-    const currentRpcApiVersion = await provider.getRpcApiVersion();
-    console.log('RPC API Version:', currentRpcApiVersion);
-
-    const account = getAccount(process.env.SEED, process.env.SCHEMA);
-    console.log('Account Address:', account.address);
-
-    // request Sui coins from the faucet (two times to create two
-    // different coins)
-    await reqFaucetSui(account.address, provider);
-    await reqFaucetSui(account.address, provider);
-    await showOwnership(account.address, provider);
-
-    // merge the Sui coins and show the result
-    await mergeCoinParts(account, provider);
-    await showOwnership(account.address, provider);
-
-    // send coins to address
-    const toAddress = process.env.SEND_TO;
-    await sendSuiCoins(account, toAddress, provider, 10000);
-    await showOwnership(account.address, provider);
-    await showOwnership(toAddress, provider);
-
-    // publish package
-    const publishedData = await buildAndPublishPackage(account, 'hello_world', provider);
-    console.log('Package ID:', publishedData);
-
-    // mint object
-    const result = await moveCall(
-        account,
-        publishedData.packageId,
-        'hello_world',
-        'mint',
-        provider,
-    );
-    console.log(result);
+    try {
+        const moduleFunc = await import(`../dist/${fileName}`);
+        const mainFunc = moduleFunc['main'];
+        if (typeof mainFunc === 'function') {
+            await mainFunc();
+        } else {
+            console.log(`The module "${fileName}" does not export a function.`);
+        }
+    } catch (error) {
+        console.error(`Failed to load module "${fileName}".`, error);
+    }
 }
 
-main().then().catch((err) => console.error(err))
+scriptRun().catch((error) => {
+    console.log(error);
+});
