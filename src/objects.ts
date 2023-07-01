@@ -14,6 +14,40 @@ export async function sendSuiCoins(
     // Create transaction block
     const tx = new TransactionBlock();
     const [coin] = tx.splitCoins(tx.gas, [tx.pure(amount)]);
+    console.log(coin);
+    tx.transferObjects([coin], tx.pure(toAddress));
+
+    // Sign and send Tx Block
+    const signer = new RawSigner(fromAccount.keypair, provider);
+    const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
+
+    const txn = await provider.getTransactionBlock({
+        digest: result.digest,
+        options: {
+            showEffects: false,
+            showInput: false,
+            showEvents: false,
+            showObjectChanges: true,
+            showBalanceChanges: false,
+        },
+    });
+
+    return new ObjectChanges(txn.digest, txn?.objectChanges);
+}
+
+export async function sendCoins(
+    fromAccount: Account,
+    toAddress: string,
+    provider: JsonRpcProvider,
+    amount: Amount,
+    coinType: string,
+) {
+    // First merge the coins of type `coinType`
+    mergeCoinParts(fromAccount, provider, coinType);
+
+    // Create transaction block
+    const tx = new TransactionBlock();
+    const [coin] = tx.splitCoins(tx.object(coinType), [tx.pure(amount)]);
     tx.transferObjects([coin], tx.pure(toAddress));
 
     // Sign and send Tx Block
