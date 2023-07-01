@@ -32,7 +32,7 @@ class PublishError extends Error {
     }
 }
 
-class ObjectChanges {
+export class ObjectChanges {
     /**
      * Class represents object changes from a transaction.
      */
@@ -127,10 +127,11 @@ export async function publishPackage(
         transactionBlock: tx,
     });
 
-    console.log('RESULT');
-    console.log({ result });
+    if (result === null) {
+        throw new PublishError('Publish transaction failed');
+    }
 
-    // get objectId
+    // get the transaction block data and the changes
     const txn = await provider.getTransactionBlock({
         digest: result.digest,
         options: {
@@ -184,5 +185,16 @@ export async function moveCall(
     const signer = new RawSigner(caller.keypair, provider);
     const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
 
-    return result;
+    const txn = await provider.getTransactionBlock({
+        digest: result.digest,
+        options: {
+            showEffects: false,
+            showInput: false,
+            showEvents: false,
+            showObjectChanges: true,
+            showBalanceChanges: false,
+        },
+    });
+
+    return new ObjectChanges(txn.digest, txn?.objectChanges);
 }
