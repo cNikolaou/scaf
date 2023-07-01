@@ -1,6 +1,7 @@
 import { JsonRpcProvider, TransactionBlock, RawSigner } from '@mysten/sui.js';
 
 import { Account } from './account';
+import { ObjectChanges } from './package';
 
 type Amount = string | BigInt | number;
 
@@ -18,7 +19,19 @@ export async function sendSuiCoins(
     // Sign and send Tx Block
     const signer = new RawSigner(fromAccount.keypair, provider);
     const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
-    console.log({ result });
+
+    const txn = await provider.getTransactionBlock({
+        digest: result.digest,
+        options: {
+            showEffects: false,
+            showInput: false,
+            showEvents: false,
+            showObjectChanges: true,
+            showBalanceChanges: false,
+        },
+    });
+
+    return new ObjectChanges(txn.digest, txn?.objectChanges);
 }
 
 export async function mergeCoinParts(
@@ -52,7 +65,19 @@ export async function mergeCoinParts(
         );
         const signer = new RawSigner(account.keypair, provider);
         const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
-        console.log({ result });
+
+        const txn = await provider.getTransactionBlock({
+            digest: result.digest,
+            options: {
+                showEffects: false,
+                showInput: false,
+                showEvents: false,
+                showObjectChanges: true,
+                showBalanceChanges: false,
+            },
+        });
+
+        return new ObjectChanges(txn.digest, txn?.objectChanges);
     }
 }
 
@@ -70,5 +95,17 @@ export async function transferObjects(
 
     const signer = new RawSigner(fromAccount.keypair, provider);
     const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
-    console.log({ result });
+
+    const txn = await provider.getTransactionBlock({
+        digest: result.digest,
+        options: {
+            showEffects: false,
+            showInput: false,
+            showEvents: false,
+            showObjectChanges: true,
+            showBalanceChanges: false,
+        },
+    });
+
+    return new ObjectChanges(txn.digest, txn?.objectChanges);
 }
