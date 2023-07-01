@@ -1,8 +1,10 @@
 import { JsonRpcProvider, FaucetRateLimitError, SuiObjectChange } from '@mysten/sui.js';
 
+const OUTPUT_INDENTATION = 2;
+
 function objectData(obj: { objectId: string; version: string } | undefined): string {
     if (obj) {
-        return '\t' + obj.objectId + ' ' + obj.version;
+        return ' '.repeat(OUTPUT_INDENTATION) + obj.objectId + ' ' + obj.version;
     }
     return '';
 }
@@ -13,7 +15,16 @@ function coinData(coin: {
     version: string;
     balance: string;
 }): string {
-    return '\t' + coin.coinType + ' ' + coin.coinObjectId + ' ' + coin.version + ' ' + coin.balance;
+    return (
+        ' '.repeat(OUTPUT_INDENTATION) +
+        coin.coinType +
+        ' ' +
+        coin.coinObjectId +
+        ' ' +
+        coin.version +
+        ' ' +
+        coin.balance
+    );
 }
 
 export async function showOwnership(address: string, provider: JsonRpcProvider) {
@@ -24,13 +35,13 @@ export async function showOwnership(address: string, provider: JsonRpcProvider) 
     console.log(`Address ${address} owns:`);
     console.log(separator);
 
-    separator = '\t' + separator;
+    separator = ' '.repeat(OUTPUT_INDENTATION) + separator;
 
     const objects = await provider.getOwnedObjects({
         owner: address,
     });
     console.log(separator);
-    console.log('\tObjects:');
+    console.log(' '.repeat(OUTPUT_INDENTATION) + 'Objects:');
     console.log(separator);
     const objData = objects.data.map((obj) => {
         return objectData(obj.data);
@@ -46,7 +57,7 @@ export async function showOwnership(address: string, provider: JsonRpcProvider) 
     });
 
     console.log(separator);
-    console.log('\tCoins');
+    console.log(' '.repeat(OUTPUT_INDENTATION) + 'Coins');
     console.log(separator);
     console.log(cData.join('\n'));
 }
