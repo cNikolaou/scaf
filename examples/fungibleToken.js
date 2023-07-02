@@ -9,15 +9,15 @@
 // - SCHEMA: the key schema, either 'Ed25519Keypair', 'Secp256k1Keypair', or 'Secp256r1Keypair'
 // - SEND_TO: the address of another account, where the manager will mint some tokens to
 //
-import 'dotenv/config.js';
+require('dotenv').config;
 
-import { getAccount } from '../src/account';
-import { showOwnership } from '../src/utils';
-import { buildAndPublishPackage } from '../src/package';
-import { Network, sleepForMs } from '../src/network';
-import { sendCoins, moveCall } from '../src/objects';
+const { getAccount } = require('scaf/dist');
+const { showOwnership } = require('scaf/utils');
+const { buildAndPublishPackage } = require('scaf/package');
+const { Network, sleepForMs } = require('scaf/network');
+const { sendCoins, moveCall } = require('scaf/objects');
 
-export async function main() {
+async function main() {
     // Setup a local network for this project only
     const net = Network.getNetwork();
 
@@ -119,3 +119,5 @@ export async function main() {
     // network through the Sui explorer
     // net.stopNetwork();
 }
+
+main().catch((error) => console.error(error));
