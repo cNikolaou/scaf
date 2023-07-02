@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/run.js"
+    "start": "node dist/run.js",
+    "copy": "node dist/copy.js"
   },
   "bin": {
     "scaf": "./dist/copy.js"
