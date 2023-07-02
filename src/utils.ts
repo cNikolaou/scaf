@@ -1,4 +1,8 @@
-import { JsonRpcProvider, FaucetRateLimitError, SuiObjectChange } from '@mysten/sui.js';
+import { FaucetRateLimitError, SuiObjectChange } from '@mysten/sui.js';
+
+import { getProvider } from './env';
+
+const provider = getProvider();
 
 const OUTPUT_INDENTATION = 2;
 
@@ -27,7 +31,7 @@ function coinData(coin: {
     );
 }
 
-export async function showOwnership(address: string, provider: JsonRpcProvider) {
+export async function showOwnership(address: string) {
     // find out what the address owns
     let separator = '-'.repeat(80);
 
@@ -62,7 +66,7 @@ export async function showOwnership(address: string, provider: JsonRpcProvider) 
     console.log(cData.join('\n'));
 }
 
-export async function reqFaucetSui(toAddress: string, provider: JsonRpcProvider) {
+export async function reqFaucetSui(toAddress: string) {
     try {
         await provider.requestSuiFromFaucet(toAddress);
     } catch (error) {

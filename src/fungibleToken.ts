@@ -6,11 +6,9 @@
 // following variable:
 //
 // - SEED: the seed-phrase for the token manager account
-// - SCHEMA: the key
+// - SCHEMA: the key schema, either 'Ed25519Keypair', 'Secp256k1Keypair', or 'Secp256r1Keypair'
 // - SEND_TO: the address of another account, where the manager will mint some tokens to
 //
-
-import { JsonRpcProvider, devnetConnection, localnetConnection } from '@mysten/sui.js';
 import 'dotenv/config.js';
 
 import { getAccount } from './account';
@@ -18,10 +16,6 @@ import { showOwnership } from './utils';
 import { buildAndPublishPackage, moveCall } from './package';
 import { Network, sleepForMs } from './network';
 import { sendCoins } from './objects';
-
-// connect to local network; alternative connect to devnet or another network
-const provider = new JsonRpcProvider(localnetConnection);
-// const provider = new JsonRpcProvider(devnetConnection);
 
 export async function main() {
     // Setup a local network for this project only
@@ -40,11 +34,7 @@ export async function main() {
 
     // The caller gets the `TreasuryCap<TOKENAME>` capability object and
     // a `CoinMetadata<TOKENAME>` immutable shared object is created.
-    const publishedPackage = await buildAndPublishPackage(
-        managerAccount,
-        'fungible_token',
-        provider,
-    );
+    const publishedPackage = await buildAndPublishPackage(managerAccount, 'fungible_token');
     console.log('> Package ID:', publishedPackage.packageId);
 
     // Find the object that refers to the `TreasuryCap` capability; the
@@ -64,7 +54,6 @@ export async function main() {
         publishedPackage.packageId,
         'tokename',
         'mint',
-        provider,
         [treasuryCap.objectId, '15000', managerAccount.address],
     );
     console.log(mintManagerTxb);
@@ -75,7 +64,6 @@ export async function main() {
         publishedPackage.packageId,
         'tokename',
         'mint',
-        provider,
         [treasuryCap.objectId, '5000', process.env.SEND_TO],
     );
     console.log(mintOtherTxb);
@@ -87,7 +75,7 @@ export async function main() {
     // sleep for 3 seconds so that transactions for burning are easier to
     // spot in Sui explorer: https://suiexplorer.com/?network=local
     await sleepForMs(3000);
-    await showOwnership(managerAccount.address, provider);
+    await showOwnership(managerAccount.address);
 
     // get the token object that the manager has
     const managerTokenObject = mintManagerTxb.created.find((obj) =>
@@ -99,12 +87,11 @@ export async function main() {
     const splitTokenTxb = await sendCoins(
         managerAccount,
         managerAccount.address,
-        provider,
         1000,
         managerTokenObject.objectId,
     );
 
-    await showOwnership(managerAccount.address, provider);
+    await showOwnership(managerAccount.address);
 
     // the coin to burn is part of the "created" objects and contains the
     // "Coin" as part of the type
@@ -116,13 +103,12 @@ export async function main() {
         publishedPackage.packageId,
         'tokename',
         'burn',
-        provider,
         [treasuryCap.objectId, toBurn.objectId],
     );
     console.log(burnManager);
 
-    await showOwnership(managerAccount.address, provider);
-    await showOwnership(process.env.SEND_TO, provider);
+    await showOwnership(managerAccount.address);
+    await showOwnership(process.env.SEND_TO);
 
     console.log(
         `> Explore transaction at: https://suiexplorer.com/address/${managerAccount.address}?network=local`,

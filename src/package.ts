@@ -1,7 +1,6 @@
 import { execSync } from 'child_process';
 
 import {
-    JsonRpcProvider,
     TransactionBlock,
     RawSigner,
     SuiObjectChange,
@@ -12,6 +11,9 @@ import {
 
 import { Account } from './account';
 import { showObjectChanges } from './utils';
+import { getProvider } from './env';
+
+const provider = getProvider();
 
 type BuildOutput = {
     modules: [string];
@@ -111,7 +113,6 @@ export async function publishPackage(
     publisher: Account,
     modules: [string],
     dependencies: [string],
-    provider: JsonRpcProvider,
     showPublishOutput: boolean = false,
 ) {
     const tx = new TransactionBlock();
@@ -160,12 +161,11 @@ export async function publishPackage(
 export async function buildAndPublishPackage(
     publisher: Account,
     packageName: string,
-    provider: JsonRpcProvider,
     showPublishOutput: boolean = false,
 ) {
     const [modules, dependencies] = buildPackage(packageName);
 
-    return publishPackage(publisher, modules, dependencies, provider, showPublishOutput);
+    return publishPackage(publisher, modules, dependencies, showPublishOutput);
 }
 
 export async function moveCall(
@@ -173,7 +173,6 @@ export async function moveCall(
     packageId: string,
     module: string,
     targetFunction: string,
-    provider: JsonRpcProvider,
     args: string[] = [],
 ) {
     const tx = new TransactionBlock();

@@ -1,16 +1,14 @@
-import { JsonRpcProvider, TransactionBlock, RawSigner } from '@mysten/sui.js';
+import { TransactionBlock, RawSigner } from '@mysten/sui.js';
 
 import { Account } from './account';
 import { ObjectChanges } from './package';
+import { getProvider } from './env';
+
+const provider = getProvider();
 
 type Amount = string | BigInt | number;
 
-export async function sendSuiCoins(
-    fromAccount: Account,
-    toAddress: string,
-    provider: JsonRpcProvider,
-    amount: Amount,
-) {
+export async function sendSuiCoins(fromAccount: Account, toAddress: string, amount: Amount) {
     // Create transaction block
     const tx = new TransactionBlock();
     const [coin] = tx.splitCoins(tx.gas, [tx.pure(amount)]);
@@ -38,12 +36,11 @@ export async function sendSuiCoins(
 export async function sendCoins(
     fromAccount: Account,
     toAddress: string,
-    provider: JsonRpcProvider,
     amount: Amount,
     coinType: string,
 ) {
     // First merge the coins of type `coinType`
-    mergeCoinParts(fromAccount, provider, coinType);
+    mergeCoinParts(fromAccount, coinType);
 
     // Create transaction block
     const tx = new TransactionBlock();
@@ -68,11 +65,7 @@ export async function sendCoins(
     return new ObjectChanges(txn.digest, txn?.objectChanges);
 }
 
-export async function mergeCoinParts(
-    account: Account,
-    provider: JsonRpcProvider,
-    coinType = '0x2::sui::SUI',
-) {
+export async function mergeCoinParts(account: Account, coinType = '0x2::sui::SUI') {
     const coins = await provider.getAllCoins({
         owner: account.address,
     });
@@ -118,7 +111,6 @@ export async function mergeCoinParts(
 export async function transferObjects(
     fromAccount: Account,
     toAddress: string,
-    provider: JsonRpcProvider,
     objectAddresses: string[],
 ) {
     const tx = new TransactionBlock();
