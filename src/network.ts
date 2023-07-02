@@ -8,8 +8,21 @@ const networkResetCommand =
 const CHECK_NETWORK_UP_INTERVAL = 2000;
 
 export class Network {
+    // Singleton local network class
+
     networkResetProcess: ChildProcess | null = null;
     networkRunProcess: ChildProcess | null = null;
+
+    private static networkInstance;
+
+    private constructor() {}
+
+    public static getNetwork(): Network {
+        if (!Network.networkInstance) {
+            Network.networkInstance = new Network();
+        }
+        return Network.networkInstance;
+    }
 
     public resetNetwork() {
         // function that restarts the local network by:
