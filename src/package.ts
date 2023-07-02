@@ -167,33 +167,3 @@ export async function buildAndPublishPackage(
 
     return publishPackage(publisher, modules, dependencies, showPublishOutput);
 }
-
-export async function moveCall(
-    caller: Account,
-    packageId: string,
-    module: string,
-    targetFunction: string,
-    args: string[] = [],
-) {
-    const tx = new TransactionBlock();
-    tx.moveCall({
-        target: `${packageId}::${module}::${targetFunction}`,
-        arguments: args.length > 0 ? args.map((arg) => tx.pure(arg)) : [],
-    });
-
-    const signer = new RawSigner(caller.keypair, provider);
-    const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
-
-    const txn = await provider.getTransactionBlock({
-        digest: result.digest,
-        options: {
-            showEffects: false,
-            showInput: false,
-            showEvents: false,
-            showObjectChanges: true,
-            showBalanceChanges: false,
-        },
-    });
-
-    return new ObjectChanges(txn.digest, txn?.objectChanges);
-}
