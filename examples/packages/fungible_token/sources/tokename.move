@@ -4,6 +4,7 @@
 
 module fungible_token::tokename {
 
+    // tokenaem
     use std::option;
     use sui::coin::{Self, Coin, TreasuryCap};
     use sui::transfer;
