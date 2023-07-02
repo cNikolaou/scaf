@@ -1,3 +1,5 @@
+// Helper functions for displaying data on the terminal
+
 import { FaucetRateLimitError, SuiObjectChange } from '@mysten/sui.js';
 
 import { getProvider } from './env';

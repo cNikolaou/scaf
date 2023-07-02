@@ -148,6 +148,10 @@ export class Network {
 }
 
 export function sleepForMs(milliseconds: number) {
+    // Simple function to make node sleep and wait for `milliseconds`.
+    // Eg to sleep for 3 seconds use as:
+    //      await sleepForMs(3000)
+
     return new Promise((resolve) => {
         setTimeout(resolve, milliseconds);
     });

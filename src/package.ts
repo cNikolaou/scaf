@@ -86,6 +86,8 @@ class PublishedData extends ObjectChanges {
 }
 
 export function buildPackage(packageName: string, showBuildOutput: boolean = false) {
+    // Use sui CLI tool to build the `packageName` package under `./packages/`
+
     try {
         const { modules, dependencies }: BuildOutput = JSON.parse(
             execSync(
@@ -115,6 +117,8 @@ export async function publishPackage(
     dependencies: [string],
     showPublishOutput: boolean = false,
 ) {
+    // Send a transaction block to publish the compiled `modules`
+
     const tx = new TransactionBlock();
     const [up] = tx.publish({
         modules,
@@ -163,6 +167,9 @@ export async function buildAndPublishPackage(
     packageName: string,
     showPublishOutput: boolean = false,
 ) {
+    // Compile first the Move package `packageName` under `./packages`
+    // and publish the module-compilation output
+
     const [modules, dependencies] = buildPackage(packageName);
 
     return publishPackage(publisher, modules, dependencies, showPublishOutput);

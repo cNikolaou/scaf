@@ -2,6 +2,9 @@
 // function.
 
 async function scriptRun() {
+    // Run the TS module passed as a second command line argument
+    //  npm start <script_name>
+
     const fileName = process.argv[2];
 
     try {
