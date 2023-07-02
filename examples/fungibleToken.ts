@@ -11,11 +11,11 @@
 //
 import 'dotenv/config.js';
 
-import { getAccount } from './account';
-import { showOwnership } from './utils';
-import { buildAndPublishPackage } from './package';
-import { Network, sleepForMs } from './network';
-import { sendCoins, moveCall } from './objects';
+import { getAccount } from '../src/account';
+import { showOwnership } from '../src/utils';
+import { buildAndPublishPackage } from '../src/package';
+import { Network, sleepForMs } from '../src/network';
+import { sendCoins, moveCall } from '../src/objects';
 
 export async function main() {
     // Setup a local network for this project only
