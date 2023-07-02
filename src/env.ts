@@ -2,6 +2,7 @@ import {
     JsonRpcProvider,
     localnetConnection,
     devnetConnection,
+    testnetConnection,
     mainnetConnection,
 } from '@mysten/sui.js';
 
@@ -18,6 +19,9 @@ export function getProvider() {
             break;
         case 'devnet':
             provider = new JsonRpcProvider(devnetConnection);
+            break;
+        case 'testnet':
+            provider = new JsonRpcProvider(testnetConnection);
             break;
         case 'mainnet':
             provider = new JsonRpcProvider(mainnetConnection);
