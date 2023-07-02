@@ -1,6 +1,14 @@
+# don't track node modules
 node_modules/
+
+# directory with the compiled TypeScript of the project
 dist/
+
+# "build/" directories contain the compiled Move package code; don't track on git
 build/
-*.env
+
 # state files for the local network
 sui_local_network/
+
+# .env files might contain sensitive information
+*.env
