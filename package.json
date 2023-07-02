@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/index.js"
+    "start": "node dist/run.js",
+    "copy": "node dist/copy.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   },
   "dependencies": {
     "@mysten/sui.js": "^0.36.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "fs-extra": "^11.1.1"
   }
 }
