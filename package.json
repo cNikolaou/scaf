@@ -4,8 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/run.js",
-    "create": "node dist/copy.js"
+    "start": "node dist/run.js"
+  },
+  "bin": {
+    "scaf": "./dist/copy.js"
   },
   "repository": {
     "type": "git",
