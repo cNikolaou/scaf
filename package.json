@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/run.js",
-    "copy": "node dist/copy.js"
+    "create": "node dist/copy.js"
   },
   "repository": {
     "type": "git",
