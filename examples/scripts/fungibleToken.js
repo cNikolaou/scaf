@@ -19,7 +19,7 @@ const {
     sleepForMs,
     moveCall,
     getPackagesPathRelativeToDir,
-} = require('scaf');
+} = require('@cnikolaou/scaf');
 
 async function main() {
     // Setup a local network for this project only
