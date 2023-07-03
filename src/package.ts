@@ -144,7 +144,6 @@ export async function publishPackage(
         modules,
         dependencies,
     });
-    console.log(up);
     tx.transferObjects([up], tx.pure(publisher.address));
 
     const signer = new RawSigner(publisher.keypair, provider);

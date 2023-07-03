@@ -1,9 +1,18 @@
-import { execSync, spawn, ChildProcess } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 import http from 'http';
+import { execSync, spawn, ChildProcess } from 'child_process';
+
+const GENESIS_FILE_NAME = 'genesis.yaml';
+let genesisFilePath = path.resolve(process.cwd(), GENESIS_FILE_NAME);
+
+if (!fs.existsSync(genesisFilePath)) {
+    genesisFilePath = path.join(__dirname, '../examples', GENESIS_FILE_NAME);
+}
 
 const networkRunCommand = 'start --network.config sui_local_network/network.yaml'.split(' ');
 const networkResetCommand =
-    'genesis --from-config genesis.yaml --working-dir sui_local_network/ -f'.split(' ');
+    `genesis --from-config ${genesisFilePath} --working-dir sui_local_network/ -f`.split(' ');
 
 const CHECK_NETWORK_UP_INTERVAL = 2000;
 
@@ -48,6 +57,9 @@ export class Network {
 
         this.networkResetProcess.on('close', (code) => {
             console.log(`Local network reset exited with code ${code}`);
+            if (code !== 0) {
+                process.exit(1);
+            }
         });
     }
 

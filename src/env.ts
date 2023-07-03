@@ -12,15 +12,15 @@ import {
     mainnetConnection,
 } from '@mysten/sui.js';
 
-const CONFIG_NAME = 'scaf.config.js';
-const userConfigPath = path.resolve(process.cwd(), CONFIG_NAME);
+const CONFIG_FILE_NAME = 'scaf.config.js';
+const userConfigPath = path.resolve(process.cwd(), CONFIG_FILE_NAME);
 
 let config;
 
 if (fs.existsSync(userConfigPath)) {
     config = require(userConfigPath);
 } else {
-    const exampleConfig = path.join(__dirname, '../examples/', CONFIG_NAME);
+    const exampleConfig = path.join(__dirname, '../examples/', CONFIG_FILE_NAME);
     config = require(exampleConfig);
 }
 
