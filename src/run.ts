@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // Entry point used to select which module to load and run it's `main()`
 // function.
 
