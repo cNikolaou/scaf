@@ -9,7 +9,6 @@
 // - SCHEMA: the key schema, either 'Ed25519Keypair', 'Secp256k1Keypair', or 'Secp256r1Keypair'
 // - SEND_TO: the address of another account, where the manager will mint some tokens to
 //
-require('dotenv').config;
 
 const {
     getAccount,
