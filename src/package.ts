@@ -107,10 +107,26 @@ export function buildPackage(
 
         return [modules, dependencies];
     } catch (error) {
-        // show the compilation error message to locate and fix the issue(s)
+        // throw an error related to the compilation error message to
+        // locate and fix the issue(s)
+
+        let errorMessage = '';
+
+        if (error.message) {
+            errorMessage += error.message + '\n';
+        }
+
+        if (error.stdout) {
+            errorMessage += error.stdout?.toString() + '\n';
+        }
+
+        if (error.stderr) {
+            errorMessage += error.stderr?.toString() + '\n';
+        }
+
         throw new BuildError(
             'The following errors where encountering while building the package:\n\n' +
-                error.stdout,
+                errorMessage,
         );
     }
 }
