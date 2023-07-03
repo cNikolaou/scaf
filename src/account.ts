@@ -15,7 +15,18 @@ let keypairSchemas = {
     Secp256r1Keypair: Secp256r1Keypair,
 };
 
+class AccountError extends Error {
+    constructor(message?: string) {
+        super(message);
+        this.name = 'AccountError';
+    }
+}
+
 export function getAccount(seed: string, schema: SchemaStr): Account {
+    if (seed === undefined || schema === undefined) {
+        throw new AccountError('Cannot create Account object; missing "seed" or "schema"');
+    }
+
     let keypair = keypairSchemas[schema].deriveKeypair(seed);
     return {
         keypair,
