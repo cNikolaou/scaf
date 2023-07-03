@@ -27,9 +27,17 @@
     "trailingComma": "all"
   },
   "_moduleAliases": {
-    "scaf": "dist"
+    "@cnikolaou/scaf": "dist"
   },
   "homepage": "https://github.com/cNikolaou/scaf#readme",
+  "files": [
+    "dist/",
+    "examples/",
+    "src/",
+    "environment.d.ts",
+    "LICENSE",
+    "README.md"
+  ],
   "devDependencies": {
     "@types/node": "^20.3.2",
     "module-alias": "^2.2.3",
