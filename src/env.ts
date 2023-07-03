@@ -12,7 +12,7 @@ import {
     mainnetConnection,
 } from '@mysten/sui.js';
 
-const CONFIG_NAME = 'config.js';
+const CONFIG_NAME = 'scaf.config.js';
 const userConfigPath = path.resolve(process.cwd(), CONFIG_NAME);
 
 let config;
