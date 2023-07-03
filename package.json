@@ -26,6 +26,9 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
+  "_moduleAliases": {
+    "scaf": "dist"
+  },
   "homepage": "https://github.com/cNikolaou/scaf#readme",
   "devDependencies": {
     "@types/node": "^20.3.2",

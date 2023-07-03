@@ -1,6 +1,18 @@
 // Entry point used to select which module to load and run it's `main()`
 // function.
 
+// NOTE: To run scripts from the `examples/` directory and load the
+// dependencies from the `scaf` project, and be able to test them, we are
+// adding a alias from `scaf` to `dist`. This assumes that installing
+// `scaf` as a package, adds the files of `scaf` under a `/node_modules/`
+// directory, which is what happens usually for Node projects. In that
+// case the alias is not used. Maybe there is a better way to do that.
+if (!__dirname.includes('/node_modules/')) {
+    require('module-alias/register');
+}
+
+import path from 'path';
+
 async function scriptRun() {
     // Run the TS module passed as a second command line argument
     //  npm start <script_name>
@@ -8,8 +20,10 @@ async function scriptRun() {
     const fileName = process.argv[2];
 
     try {
-        const moduleFunc = await import(`../dist/${fileName}`);
+        const scriptPath = path.join(process.cwd(), fileName);
+        const moduleFunc = await import(scriptPath);
         const mainFunc = moduleFunc['main'];
+
         if (typeof mainFunc === 'function') {
             await mainFunc();
         } else {

@@ -14,7 +14,6 @@ export async function sendSuiCoins(fromAccount: Account, toAddress: string, amou
     // Create transaction block
     const tx = new TransactionBlock();
     const [coin] = tx.splitCoins(tx.gas, [tx.pure(amount)]);
-    console.log(coin);
     tx.transferObjects([coin], tx.pure(toAddress));
 
     // Sign and send Tx Block

@@ -11,11 +11,15 @@
 //
 require('dotenv').config;
 
-const { getAccount } = require('scaf/dist');
-const { showOwnership } = require('scaf/utils');
-const { buildAndPublishPackage } = require('scaf/package');
-const { Network, sleepForMs } = require('scaf/network');
-const { sendCoins, moveCall } = require('scaf/objects');
+const {
+    getAccount,
+    showOwnership,
+    buildAndPublishPackage,
+    Network,
+    sendCoins,
+    sleepForMs,
+    moveCall,
+} = require('scaf');
 
 async function main() {
     // Setup a local network for this project only
