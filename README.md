@@ -55,18 +55,8 @@ of the local blockchain. You need to update the file with your public addresses 
 
 # Run
 
-To run the sample script, update the `package.json` file and change the
-`"scripts"` to:
-
-```
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node scripts/fungibleToken"
-  },
-```
-
-You also need to create a local `.env` file with the following information
-and you need to make sure not to include that in any commit:
+To run the sample script you need to create a local `.env` file with the following information
+(make sure not to include that file in any commit):
 
 ```
 SEED='YOUR-SEED-PHRASE'
@@ -74,12 +64,16 @@ SCHEMA='SCHEMA-USED-FOR-PRIVATE-KEY'
 SEND_TO='PUBLIC-ADDRESS-OF-RECEIVER'
 ```
 
-The run the script by:
+Then run the sample script by:
 
 ```
-npm start
+npx scaf-run scripts/fungibleToken
 ```
+
+And open the Sui explorer to see the results on the local network:
+[https://suiexplorer.com/?network=local](https://suiexplorer.com/?network=local)
 
 You can create and run your own scripts that interract with the Sui blockchain (either
-`localnet` or any other Sui network), by updating the `scaf.config.js`. You can automate
-interractions with smart contracts or deploying your own Sui Move smart contracts.
+`localnet` or any other Sui network), by selecting the active network for the scripts
+in `scaf.config.js`. You can automate interractions with smart contracts or deploying
+your own Sui Move smart contracts.
