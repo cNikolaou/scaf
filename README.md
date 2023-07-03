@@ -7,12 +7,12 @@ Scaf is a development environment for the Sui blockchain. With Scaf you can:
 - Manage a local project-specific Sui network for development, testing, and
     simulating contract interraction.
 
-# Prerequisites
+## Prerequisites
 
 Scaf requires the `sui` CLI for building the Sui Move smart contracts and for
 running the local network. To [install the SUI CLI](https://docs.sui.io/build/install).
 
-# Installation
+## Installation
 
 You can install Scaf with npm. To start a new project and develop Sui Move smart
 contracts
@@ -25,7 +25,7 @@ npm init -y
 npm install @cnikolaou/scaf
 ```
 
-# Setup and Configuration
+## Setup and Configuration
 
 After installing `scaf`, you can create a structure for your project with:
 
@@ -53,7 +53,7 @@ of the local blockchain. You need to update the file with your public addresses 
 - `scaf.config.js` selects against which network the script actions will run. The options are
 `mainnet`, `testnet`, `devnet`, and `localnet`.
 
-# Run
+## Run
 
 To run the sample script you need to create a local `.env` file with the following information
 (make sure not to include that file in any commit):
