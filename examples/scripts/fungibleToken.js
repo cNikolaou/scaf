@@ -18,6 +18,7 @@ const {
     sendCoins,
     sleepForMs,
     moveCall,
+    getPackagesPathRelativeToDir,
 } = require('scaf');
 
 async function main() {
@@ -37,7 +38,12 @@ async function main() {
 
     // The caller gets the `TreasuryCap<TOKENAME>` capability object and
     // a `CoinMetadata<TOKENAME>` immutable shared object is created.
-    const publishedPackage = await buildAndPublishPackage(managerAccount, 'fungible_token');
+    const packagesDir = getPackagesPathRelativeToDir(__dirname);
+    const publishedPackage = await buildAndPublishPackage(
+        managerAccount,
+        'fungible_token',
+        packagesDir,
+    );
     console.log('> Package ID:', publishedPackage.packageId);
 
     // Find the object that refers to the `TreasuryCap` capability; the

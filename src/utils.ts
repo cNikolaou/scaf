@@ -1,4 +1,5 @@
 // Helper functions for displaying data on the terminal
+import path from 'path';
 
 import { FaucetRateLimitError, SuiObjectChange } from '@mysten/sui.js';
 
@@ -106,4 +107,10 @@ export function showObjectChanges(txnObjectChanges: SuiObjectChange[]) {
 
     console.log('--- Transaction Effects ---');
     console.log(changes.join('\n'));
+}
+
+export function getPackagesPathRelativeToDir(dir: string) {
+    // get the absolule path to `packages/` relative to the provided path
+    const packagesPath = path.resolve(dir, '../packages');
+    return packagesPath;
 }

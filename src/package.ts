@@ -85,13 +85,17 @@ class PublishedData extends ObjectChanges {
     }
 }
 
-export function buildPackage(packageName: string, showBuildOutput: boolean = false) {
+export function buildPackage(
+    packageName: string,
+    packagesPath: string = '"$(pwd)"/packages',
+    showBuildOutput: boolean = false,
+) {
     // Use sui CLI tool to build the `packageName` package under `./packages/`
 
     try {
         const { modules, dependencies }: BuildOutput = JSON.parse(
             execSync(
-                `sui move build --dump-bytecode-as-base64 --path "$(pwd)"/packages/${packageName}`,
+                `sui move build --dump-bytecode-as-base64 --path ${packagesPath}/${packageName}`,
                 { encoding: 'utf-8' },
             ),
         );
@@ -165,12 +169,16 @@ export async function publishPackage(
 export async function buildAndPublishPackage(
     publisher: Account,
     packageName: string,
+    packagesPath?: string,
     showPublishOutput: boolean = false,
 ) {
-    // Compile first the Move package `packageName` under `./packages`
-    // and publish the module-compilation output
+    // Compile first the Move package `packageName` under the `packages/`
+    // directory and publish the module-compilation output.
+    // The `packagesPath` refers to the absolute path containing the
+    // `packages/` directory. If ommited the "$(cwd)/packages/" directory
+    // is used.
 
-    const [modules, dependencies] = buildPackage(packageName);
+    const [modules, dependencies] = buildPackage(packageName, packagesPath);
 
     return publishPackage(publisher, modules, dependencies, showPublishOutput);
 }
