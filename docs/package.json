@@ -9,6 +9,10 @@
     "preview": "astro preview",
     "astro": "astro"
   },
+  "prettier": {
+    "tabWidth": 2,
+    "singleQuote": true
+  },
   "dependencies": {
     "@astrojs/starlight": "^0.4.1",
     "astro": "2.7.0",
