@@ -5,22 +5,27 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
   integrations: [
     starlight({
-      title: 'My Docs',
+      title: 'Scaf',
       social: {
-        github: 'https://github.com/withastro/starlight',
+        github: 'https://github.com/cNikolaou/scaf',
       },
       sidebar: [
         {
-          label: 'Guides',
+          label: 'Get Started',
           items: [
-            // Each item here is one entry in the navigation menu.
-            { label: 'Example Guide', link: '/guides/example/' },
+            { label: 'Introduction', link: '/getstarted/introduction/' },
+            { label: 'Setup', link: '/getstarted/setup/' },
+            { label: 'Run', link: '/getstarted/run/' },
           ],
         },
-        {
-          label: 'Reference',
-          autogenerate: { directory: 'reference' },
-        },
+        // {
+        //   label: 'Guides',
+        //   items: [
+        //     // Each item here is one entry in the navigation menu.
+        //     // { label: '' },
+        //     { label: 'Deploy a fungible token', link: '/guides/example/' },
+        //   ],
+        // },
       ],
     }),
   ],
