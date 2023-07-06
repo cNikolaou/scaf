@@ -23,6 +23,7 @@ export default defineConfig({
           items: [
             { label: 'Accounts', link: '/reference/accounts/' },
             { label: 'Local Sui Network', link: '/reference/localnetwork/' },
+            { label: 'Configuration', link: '/reference/configuration/' },
           ],
         },
       ],
