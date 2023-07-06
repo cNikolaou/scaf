@@ -29,3 +29,5 @@ const account = getAccount(process.env.SEED, process.env.SCHEMA);
 
 // rest of the script ...
 ```
+
+Read more on the [Configuration page](/reference/configuration)

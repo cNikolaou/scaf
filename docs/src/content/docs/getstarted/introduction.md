@@ -17,7 +17,8 @@ It is built on top of the:
 - [Sui CLI](https://docs.sui.io/build/cli-client)
 
 and provides functionality for interrecting with the Sui blockchain. It can be used for
-developing and deploying Sui smart contracts, and for interracting with the Sui blockchain.
+developing and deploying Sui smart contracts, and for interracting with the Sui blockchain
+by utilising conventient Scaf functions that abstract the biolerplate.
 
 
 ## Prerequisites
