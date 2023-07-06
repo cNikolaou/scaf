@@ -18,14 +18,10 @@ export default defineConfig({
             { label: 'Run', link: '/getstarted/run/' },
           ],
         },
-        // {
-        //   label: 'Guides',
-        //   items: [
-        //     // Each item here is one entry in the navigation menu.
-        //     // { label: '' },
-        //     { label: 'Deploy a fungible token', link: '/guides/example/' },
-        //   ],
-        // },
+        {
+          label: 'Reference',
+          items: [{ label: 'Accounts', link: '/reference/accounts/' }],
+        },
       ],
     }),
   ],
