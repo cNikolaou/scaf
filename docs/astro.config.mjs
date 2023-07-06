@@ -5,6 +5,22 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
   integrations: [
     starlight({
+      head: [
+        {
+          tag: 'script',
+          content: `
+          <!-- Google tag (gtag.js) -->
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3NQ96M6PB"></script>
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-Q3NQ96M6PB');
+          </script>
+          `,
+        },
+      ],
       title: 'Scaf',
       social: {
         github: 'https://github.com/cNikolaou/scaf',
