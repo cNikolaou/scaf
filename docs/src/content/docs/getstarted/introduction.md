@@ -3,7 +3,7 @@ title: Introduction
 description: An introduction to Scaf
 ---
 
-:::warning
+:::caution
 Scaf is in early development. It's adviced to use it for local testing and deploying
 to `testnet` and `devnet` at first and familiarise yourself with using the tool.
 If you find something that is not working
