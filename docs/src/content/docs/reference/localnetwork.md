@@ -28,3 +28,15 @@ network to start.
 If you don't run `Network.stopNetwork()` at the end of your script, then the process will not
 stop and the script will wait for you to press `Ctrl+C`. This can be useful if you want to
 observe the state of the network and the accounts at the end of your script.
+
+When the local network is still running, you can observe the state via the Sui explorer:
+[https://suiexplorer.com/?network=local](https://suiexplorer.com/?network=local)
+
+If you get a <failure>Failed to load Transactions</failure> message, then the local Sui network
+is probably not running.
+
+<style>
+failure {
+    color: red;
+}
+</style>
