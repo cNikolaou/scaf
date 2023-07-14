@@ -3,7 +3,7 @@ title: Welcome to Scaf
 description: Get started building your Sui smart contracts with Scaf
 template: splash
 hero:
-  tagline: Start building your Sui project with Scaf now!
+  tagline: The framework to develop, test, and deploy Sui smart contracts.
   image:
     file: ../../assets/scaf-logo.svg
   actions:
@@ -22,27 +22,20 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 <CardGrid stagger>
   <Card title="Develop & Deploy" icon="document">
-    Develop Sui Move smart contracts and deploy them to Sui. Scaf uses the
-    `sui` CLI to build your Sui Move smart contracts, and provides
-    functionality to deploy your smart contracts on the Sui blockchain.
+    Develop Sui Move smart contracts and deploy them to Sui by using
+    JavaScript/TypeScript scripts for automation.
   </Card>
   <Card title="Project-specific Local Sui Network" icon="laptop">
-    Spin a local project-specific network from a customisable genesis state, for
-    more control during the development of your smart contracts. The
-    project-specific networks allows you to have multiple projects on the same
-    machine, each with its own network state.
+    Spin a project-specific, local network from a customisable genesis state, for
+    controlled testing, and isolation from other Sui projects on your machine.
   </Card>
   <Card title="Simulate & Test" icon="approve-check-circle">
-    Write scripts that interractions with packages on a local nor public Sui
-    network. You can imulate different interraction with your packages locally
-    or on `devnet` or `testnet` before you deploy on `mainnet` and test your
-    smart contracts to elimiate bugs or exploits.
+    Write scripts that interract with packages on any Sui
+    network and simulate different interractions, especially
+    before deploying on `mainnet`.
   </Card>
   <Card title="Educate" icon="open-book">
-    You can use Scaf for educational purposes by writing multiple versions of the
-    same package under the `packages/` directory, and you can have supporting
-    scripts that interract with them. Each package can contain work that builds
-    on concepts introduced on the previous packages and the repository can be
-    shared with others.
+    Provide educational material by storing different versions of the
+    same package alongside scripts to interract with each version.
   </Card>
 </CardGrid>
