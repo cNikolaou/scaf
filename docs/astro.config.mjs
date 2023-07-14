@@ -41,7 +41,7 @@ export default defineConfig({
           label: 'Reference',
           items: [
             { label: 'Accounts', link: '/reference/accounts/' },
-            { label: 'Local Sui Network', link: '/reference/localnetwork/' },
+            { label: 'Local Sui Network', link: '/reference/local_network/' },
             { label: 'Configuration', link: '/reference/configuration/' },
             { label: 'Scaf Functions', link: '/reference/functions/' },
           ],
