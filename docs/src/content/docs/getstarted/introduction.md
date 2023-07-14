@@ -10,15 +10,22 @@ If you find something that is not working
 [open an issue on GitHub](https://github.com/cNikolaou/scaf/issues).
 :::
 
-Scaf is an opensource framework for scaffolding [Sui smart contracts](https://docs.sui.io/build/move).
-It is built on top of the:
+Scaf is a framework for developing, testing, and deploying
+[Sui smart contracts](https://docs.sui.io/build/move) and provides conventient
+functions that abstract biolerplate code.
 
-- [`@mysten/sui.js` SDK](https://www.npmjs.com/package/@mysten/sui.js)
-- [Sui CLI](https://docs.sui.io/build/cli-client)
+You can use Scaf to:
+- write Sui smart contracts, build them, and deploy them on any Sui network
+- write scripts to simulate interractions with your smart contracts for testing
+before deploying to `mainnet`
+- write scripts that use Scaf to interract with any smart contract to
+automate tasks
 
-and provides functionality for interrecting with the Sui blockchain. It can be used for
-developing and deploying Sui smart contracts, and for interracting with the Sui blockchain
-by utilising conventient Scaf functions that abstract the biolerplate.
+For example, you can have a script that burns `X` amount of tokens by calling
+a `burn` function on your smart contract, or create a bot that calls
+a liquidation function of a smart contract when some conditions are met.
+And you can test all of that before actually interracting with `mainnet`, either
+in a local Sui network, or any of the `devnet` and `testnet` public Sui networks.
 
 
 ## Prerequisites
@@ -40,3 +47,7 @@ npm init -y
 npm install @cnikolaou/scaf
 ```
 
+## Issues & Feedback
+
+We aim to make Scaf more usable and user friendly. If you find any bugs or
+have any suggestions you can open a [GitHub issue](https://github.com/cNikolaou/scaf/issues).

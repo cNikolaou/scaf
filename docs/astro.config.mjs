@@ -34,7 +34,7 @@ export default defineConfig({
           items: [
             { label: 'Introduction', link: '/getstarted/introduction/' },
             { label: 'Setup', link: '/getstarted/setup/' },
-            { label: 'Run', link: '/getstarted/run/' },
+            { label: 'Run Sample Project', link: '/getstarted/run/' },
           ],
         },
         {

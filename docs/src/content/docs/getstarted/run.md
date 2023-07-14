@@ -1,12 +1,16 @@
 ---
-title: Run
+title: Run Sample Project
 description: Run your Scaf scripts
 ---
 
 ## Run
 
-To run the sample script you need to create a local `.env` file with the following information
-(make sure not to include that file in any commit):
+:::caution
+Do not commit files with your seed phrases or private keys on a repository.
+:::
+
+To run the sample script that is automatically generated for you,
+you need to create a local `.env` file with the  following information:
 
 ```
 SEED='YOUR-SEED-PHRASE'
