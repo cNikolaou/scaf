@@ -46,6 +46,12 @@ export default defineConfig({
             { label: 'Scaf Functions', link: '/reference/functions/' },
           ],
         },
+        {
+          label: 'Learn',
+          items: [
+            { label: 'Introduction', link: '/learn/introduction/' },
+          ],
+        },
       ],
     }),
   ],
