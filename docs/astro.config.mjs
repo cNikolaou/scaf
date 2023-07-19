@@ -47,9 +47,10 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Learn',
+          label: 'Learn Sui',
           items: [
             { label: 'Introduction', link: '/learn/introduction/' },
+            { label: 'Lesson 1', link: '/learn/lesson_1/' },
           ],
         },
       ],
