@@ -52,6 +52,8 @@ export default defineConfig({
             { label: 'Introduction', link: '/learn/introduction/' },
             { label: 'Lesson 1', link: '/learn/lesson_1/' },
             { label: 'Lesson 2', link: '/learn/lesson_2/' },
+            { label: 'Lesson 3', link: '/learn/lesson_3/' },
+            { label: 'Lesson 4', link: '/learn/lesson_4/' },
           ],
         },
       ],
