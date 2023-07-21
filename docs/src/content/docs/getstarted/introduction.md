@@ -31,7 +31,19 @@ in a local Sui network, or any of the `devnet` and `testnet` public Sui networks
 ## Prerequisites
 
 Scaf requires the `sui` CLI for building the Sui Move smart contracts and for
-running the local network. To [install the SUI CLI](https://docs.sui.io/build/install).
+running the local network. To [install the SUI CLI](https://docs.sui.io/build/install)
+run:
+
+```bash
+cargo install --locked --git https://github.com/MystenLabs/sui.git --branch devnet sui
+
+```
+
+And check if the CLI is installed:
+
+```bash
+sui --version
+```
 
 
 ## Installation
