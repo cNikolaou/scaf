@@ -1,11 +1,11 @@
-# Scaf: Sui Scaffolding Framework (alpha version)
+# Scaf: Development Framework for the Sui Blockchain
 
-Scaf is a development environment for the Sui blockchain. With Scaf you can:
+[Scaf](www.scafsui.com) is a development environment for the Sui blockchain. With Scaf you can:
 - Develop, build, and deploy [Sui Move smart contracts](https://docs.sui.io/build/move).
 - Interract with Sui Move smart contracts on `mainnet`, `testnet`, `devnet`,
     and `localnet`.
-- Manage a local project-specific Sui network for development, testing, and
-    simulating contract interraction.
+- Manage a project-specific local Sui network for development, testing, and
+    simulating interaction.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@ sui --version
 You can install Scaf with npm. To start a new project and develop Sui Move smart
 contracts
 
-```
+```bash
 mkdir sui_move_project
 cd sui_move_project
 
@@ -41,7 +41,7 @@ npm install @cnikolaou/scaf
 
 After installing `scaf`, you can create a structure for your project with:
 
-```
+```bash
 npx scaf
 ```
 
@@ -67,10 +67,10 @@ of the local blockchain. You need to update the file with your public addresses 
 
 ## Run
 
-To run the sample script you need to create a local `.env` file with the following information
+To run the sample project you need to create a local `.env` file with the following information
 (make sure not to include that file in any commit):
 
-```
+```bash
 SEED='YOUR-SEED-PHRASE'
 SCHEMA='SCHEMA-USED-FOR-PRIVATE-KEY'
 SEND_TO='PUBLIC-ADDRESS-OF-RECEIVER'
@@ -78,7 +78,7 @@ SEND_TO='PUBLIC-ADDRESS-OF-RECEIVER'
 
 Then run the sample script by:
 
-```
+```bash
 npx scaf-run scripts/fungibleToken
 ```
 
