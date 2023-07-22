@@ -1,6 +1,7 @@
 # Scaf: Development Framework for the Sui Blockchain
 
-[Scaf](www.scafsui.com) is a development environment for the Sui blockchain. With Scaf you can:
+[Scaf](https://www.scafsui.com) is a development environment for the Sui
+blockchain. With Scaf you can:
 - Develop, build, and deploy [Sui Move smart contracts](https://docs.sui.io/build/move).
 - Interract with Sui Move smart contracts on `mainnet`, `testnet`, `devnet`,
     and `localnet`.
