@@ -11,12 +11,13 @@ blockchain. With Scaf you can:
 ## Prerequisites
 
 Scaf requires the `sui` CLI for building the Sui Move smart contracts and for
-running the local network. To [install the SUI CLI](https://docs.sui.io/build/install)
-run:
+running the local network and the local validator.
+You can run the `./install_sui_dependencies.sh` to install both.
+
+Otherwise, to [install the SUI CLI](https://docs.sui.io/build/install) run:
 
 ```bash
-cargo install --locked --git https://github.com/MystenLabs/sui.git --branch devnet sui
-
+cargo install --locked --git https://github.com/MystenLabs/sui.git --branch releases/sui-v${VERSION}-release sui
 ```
 
 And check if the CLI is installed:
@@ -28,7 +29,7 @@ sui --version
 To use the local network and validator for development and testing you need to [install the sui-test-validator](https://docs.sui.io/guides/developer/getting-started/local-network)
 
 ```bash
-cargo install --git https://github.com/MystenLabs/sui.git sui-test-validator
+cargo install --locked --git https://github.com/MystenLabs/sui.git --branch releases/sui-v${VERSION}-release sui-test-validator
 ```
 
 And verify it's installed with:
