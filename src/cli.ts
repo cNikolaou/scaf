@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 ///
 // A simple CLI to interract with scaf
 //
