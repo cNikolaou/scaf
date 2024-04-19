@@ -1,10 +1,10 @@
-import { TransactionBlock, RawSigner } from '@mysten/sui.js';
+import { TransactionBlock } from '@mysten/sui.js/transactions';
 
 import { Account } from './account';
 import { ObjectChanges } from './package';
-import { getProvider } from './env';
+import { getClient } from './env';
 
-const provider = getProvider();
+const client = getClient();
 
 type Amount = string | BigInt | number;
 
@@ -17,11 +17,13 @@ export async function sendSuiCoins(fromAccount: Account, toAddress: string, amou
     tx.transferObjects([coin], tx.pure(toAddress));
 
     // Sign and send Tx Block
-    const signer = new RawSigner(fromAccount.keypair, provider);
-    const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
+    const result = await client.signAndExecuteTransactionBlock({
+        transactionBlock: tx,
+        signer: fromAccount.keypair,
+    });
 
     // Return the object changes of the transaction
-    const txn = await provider.getTransactionBlock({
+    const txn = await client.getTransactionBlock({
         digest: result.digest,
         options: {
             showEffects: false,
@@ -52,11 +54,13 @@ export async function sendCoins(
     tx.transferObjects([coin], tx.pure(toAddress));
 
     // Sign and send Tx Block
-    const signer = new RawSigner(fromAccount.keypair, provider);
-    const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
+    const result = await client.signAndExecuteTransactionBlock({
+        transactionBlock: tx,
+        signer: fromAccount.keypair,
+    });
 
     // Return the object changes of the transaction
-    const txn = await provider.getTransactionBlock({
+    const txn = await client.getTransactionBlock({
         digest: result.digest,
         options: {
             showEffects: false,
@@ -73,7 +77,7 @@ export async function sendCoins(
 export async function mergeCoinParts(account: Account, coinType = '0x2::sui::SUI') {
     // Merge the coin objects of `coinType` of the `account` account holder
 
-    const coins = await provider.getAllCoins({
+    const coins = await client.getAllCoins({
         owner: account.address,
     });
 
@@ -97,10 +101,12 @@ export async function mergeCoinParts(account: Account, coinType = '0x2::sui::SUI
             tx.object(coinParts[0].coinObjectId),
             coinParts.slice(1, coinParts.length).map((coin) => tx.object(coin.coinObjectId)),
         );
-        const signer = new RawSigner(account.keypair, provider);
-        const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
+        const result = await client.signAndExecuteTransactionBlock({
+            transactionBlock: tx,
+            signer: account.keypair,
+        });
 
-        const txn = await provider.getTransactionBlock({
+        const txn = await client.getTransactionBlock({
             digest: result.digest,
             options: {
                 showEffects: false,
@@ -129,10 +135,12 @@ export async function transferObjects(
         tx.pure(toAddress),
     );
 
-    const signer = new RawSigner(fromAccount.keypair, provider);
-    const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
+    const result = await client.signAndExecuteTransactionBlock({
+        transactionBlock: tx,
+        signer: fromAccount.keypair,
+    });
 
-    const txn = await provider.getTransactionBlock({
+    const txn = await client.getTransactionBlock({
         digest: result.digest,
         options: {
             showEffects: false,
@@ -161,10 +169,12 @@ export async function moveCall(
         arguments: args.length > 0 ? args.map((arg) => tx.pure(arg)) : [],
     });
 
-    const signer = new RawSigner(caller.keypair, provider);
-    const result = await signer.signAndExecuteTransactionBlock({ transactionBlock: tx });
+    const result = await client.signAndExecuteTransactionBlock({
+        transactionBlock: tx,
+        signer: caller.keypair,
+    });
 
-    const txn = await provider.getTransactionBlock({
+    const txn = await client.getTransactionBlock({
         digest: result.digest,
         options: {
             showEffects: false,

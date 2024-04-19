@@ -1,10 +1,10 @@
-import { SchemaStr } from "./src/account"
+import { SchemaName } from './src/account';
 
 declare global {
     namespace NodeJS {
         interface ProcessEnv {
-            SEED: string
-            SCHEMA: SchemaStr
+            SEED: string;
+            SCHEMA: SchemaName;
         }
     }
 }

@@ -1,11 +1,12 @@
 // Helper functions for displaying data on the terminal
 import path from 'path';
 
-import { FaucetRateLimitError, SuiObjectChange } from '@mysten/sui.js';
+import { requestSuiFromFaucetV0, FaucetRateLimitError } from '@mysten/sui.js/faucet';
+import { SuiObjectChange } from '@mysten/sui.js/client';
 
-import { getProvider } from './env';
+import { getClient, getFaucet } from './env';
 
-const provider = getProvider();
+const client = getClient();
 
 const OUTPUT_INDENTATION = 2;
 
@@ -44,7 +45,7 @@ export async function showOwnership(address: string) {
 
     separator = ' '.repeat(OUTPUT_INDENTATION) + separator;
 
-    const objects = await provider.getOwnedObjects({
+    const objects = await client.getOwnedObjects({
         owner: address,
     });
     console.log(separator);
@@ -55,7 +56,7 @@ export async function showOwnership(address: string) {
     });
     console.log(objData.join('\n'));
 
-    const coins = await provider.getAllCoins({
+    const coins = await client.getAllCoins({
         owner: address,
     });
 
@@ -71,7 +72,10 @@ export async function showOwnership(address: string) {
 
 export async function reqFaucetSui(toAddress: string) {
     try {
-        await provider.requestSuiFromFaucet(toAddress);
+        await requestSuiFromFaucetV0({
+            host: getFaucet(),
+            recipient: toAddress,
+        });
     } catch (error) {
         if (error instanceof FaucetRateLimitError) {
             console.log('To many faucet requests. Try later. Skipping for now');

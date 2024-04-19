@@ -1,19 +1,19 @@
 import { execSync } from 'child_process';
 
+import { TransactionBlock } from '@mysten/sui.js/transactions';
 import {
-    TransactionBlock,
-    RawSigner,
     SuiObjectChange,
     SuiObjectChangePublished,
     SuiObjectChangeCreated,
     SuiObjectChangeMutated,
-} from '@mysten/sui.js';
+} from '@mysten/sui.js/client';
 
 import { Account } from './account';
 import { showObjectChanges } from './utils';
-import { getProvider } from './env';
+import { showOwnership } from './utils';
+import { getClient } from './env';
 
-const provider = getProvider();
+const client = getClient();
 
 type BuildOutput = {
     modules: [string];
@@ -146,9 +146,9 @@ export async function publishPackage(
     });
     tx.transferObjects([up], tx.pure(publisher.address));
 
-    const signer = new RawSigner(publisher.keypair, provider);
-    const result = await signer.signAndExecuteTransactionBlock({
+    const result = await client.signAndExecuteTransactionBlock({
         transactionBlock: tx,
+        signer: publisher.keypair,
     });
 
     if (result === null) {
@@ -156,7 +156,7 @@ export async function publishPackage(
     }
 
     // get the transaction block data and the changes
-    const txn = await provider.getTransactionBlock({
+    const txn = await client.getTransactionBlock({
         digest: result.digest,
         options: {
             showEffects: false,

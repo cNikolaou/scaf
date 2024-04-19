@@ -4,13 +4,8 @@ dotenv.config();
 import fs from 'fs';
 import path from 'path';
 
-import {
-    JsonRpcProvider,
-    localnetConnection,
-    devnetConnection,
-    testnetConnection,
-    mainnetConnection,
-} from '@mysten/sui.js';
+import { getFullnodeUrl, SuiClient } from '@mysten/sui.js/client';
+import { getFaucetHost } from '@mysten/sui.js/faucet';
 
 const CONFIG_FILE_NAME = 'scaf.config.js';
 const userConfigPath = path.resolve(process.cwd(), CONFIG_FILE_NAME);
@@ -24,25 +19,19 @@ if (fs.existsSync(userConfigPath)) {
     config = require(exampleConfig);
 }
 
-export function getProvider() {
-    // fetch appropriate provider based on configuration
+export function getClient() {
+    // fetch appropriate Sui client based on configuration
 
-    let provider: JsonRpcProvider;
+    const rpcURL = getFullnodeUrl(config.network);
+    const client = new SuiClient({ url: rpcURL });
 
-    switch (config.network) {
-        case 'localnet':
-            provider = new JsonRpcProvider(localnetConnection);
-            break;
-        case 'devnet':
-            provider = new JsonRpcProvider(devnetConnection);
-            break;
-        case 'testnet':
-            provider = new JsonRpcProvider(testnetConnection);
-            break;
-        case 'mainnet':
-            provider = new JsonRpcProvider(mainnetConnection);
-            break;
+    return client;
+}
+
+export function getFaucet() {
+    if (config.network !== 'mainnet') {
+        return getFaucetHost(config.network);
+    } else {
+        throw Error('No faucet available when running on Mainnet');
     }
-
-    return provider;
 }
