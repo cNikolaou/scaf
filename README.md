@@ -56,7 +56,7 @@ npm install @cnikolaou/scaf
 After installing `scaf`, you can create a structure for your project with:
 
 ```bash
-npx scaf
+npx scaf init
 ```
 
 This will create the following structure:
@@ -93,7 +93,7 @@ SEND_TO='PUBLIC-ADDRESS-OF-RECEIVER'
 Then run the sample script by:
 
 ```bash
-npx scaf-run scripts/fungibleToken
+npx scaf run scripts/fungibleToken
 ```
 
 And open the Sui explorer to see the results on the local network:

@@ -1,15 +1,13 @@
 {
   "name": "@cnikolaou/scaf",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/run.js",
-    "copy": "node dist/copy.js"
+    "scaf": "node dist/cli.js"
   },
   "bin": {
-    "scaf": "./dist/copy.js",
-    "scaf-run": "./dist/run.js"
+    "scaf": "./dist/cli.js"
   },
   "repository": {
     "type": "git",

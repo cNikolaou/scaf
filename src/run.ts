@@ -15,11 +15,11 @@ if (!__dirname.includes('/node_modules/')) {
 
 import path from 'path';
 
-async function scriptRun() {
+async function scriptRun(filePath: string) {
     // Run the TS module passed as a second command line argument
     //  npm start <script_name>
 
-    const fileName = process.argv[2];
+    const fileName = filePath;
 
     try {
         const scriptPath = path.join(process.cwd(), fileName);
@@ -36,6 +36,6 @@ async function scriptRun() {
     }
 }
 
-scriptRun().catch((error) => {
-    console.log(error);
-});
+export default async function run(filePath: string) {
+    await scriptRun(filePath);
+}

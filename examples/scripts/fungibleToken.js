@@ -126,7 +126,9 @@ async function main() {
 
     // Commented out so the Node process doesn't exit; allows inspecting the
     // network through the Sui explorer
-    // net.stopNetwork();
+    net.stopNetwork();
 }
 
-main().catch((error) => console.error(error));
+module.exports = {
+    main,
+};

@@ -32,9 +32,7 @@ async function copyDirectory(fromDir: string, toDir: string) {
     }
 }
 
-const examplesDir = path.join(__dirname, '../examples');
-const toDir = process.argv[2] || './';
-
-copyDirectory(examplesDir, toDir).catch((err) => {
-    console.log(err);
-});
+export default async function copy(toDir: string) {
+    const examplesDir = path.join(__dirname, '../examples');
+    await copyDirectory(examplesDir, toDir);
+}

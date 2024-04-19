@@ -23,20 +23,12 @@ export class Account {
     address: string;
 
     public constructor(seed: string, schema: SchemaName) {
-        console.debug(`Load account with {SCHEMA: ${schema}, SEED: ${seed}}`);
-
         if (seed === undefined || schema === undefined) {
             throw new AccountError('Cannot create Account object; missing "seed" or "schema"');
         }
 
-        if (schema === 'Ed25519Keypair') {
-            this.keypair = Ed25519Keypair.deriveKeypair(seed);
-        } else if (schema === 'Secp256k1Keypair' || schema === 'Secp256r1Keypair') {
-            this.keypair = keypairSchemas[schema].deriveKeypair(seed);
-        }
+        this.keypair = keypairSchemas[schema].deriveKeypair(seed);
         this.address = this.keypair.getPublicKey().toSuiAddress();
-
-        console.debug(`Account ${this.address}`);
     }
 }
 
