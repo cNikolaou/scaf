@@ -2,8 +2,8 @@
 ssfn_config_info: ~
 validator_config_info: ~
 parameters:
-  chain_start_timestamp_ms: 1686843084438
-  protocol_version: 14
+  chain_start_timestamp_ms: 1713433864790
+  protocol_version: 42
   allow_insertion_of_extra_objects: true
   epoch_duration_ms: 86400000
   stake_subsidy_start_epoch: 0
@@ -13,15 +13,9 @@ parameters:
 accounts:
   - address: "0xa34572ebcfc83294b07af7fcdf6db9c35300cccfe20c85142927fca02de177c4"
     gas_amounts:
-      - 30000000000000000
-      - 30000000000000000
-      - 30000000000000000
-      - 30000000000000000
-      - 30000000000000000
+      - 10000000000000000
+      - 10000000000000000
+      - 10000000000000000
   - address: "0xe893d1db1f5dbe930d45cdaf32ccca038ae695571fa620bc018f0b658afc5f56"
     gas_amounts:
-      - 30000000000000000
-      - 30000000000000000
-      - 30000000000000000
-      - 30000000000000000
       - 30000000000000000

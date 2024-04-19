@@ -25,6 +25,19 @@ And check if the CLI is installed:
 sui --version
 ```
 
+To use the local network and validator for development and testing you need to [install the sui-test-validator](https://docs.sui.io/guides/developer/getting-started/local-network)
+
+```bash
+cargo install --git https://github.com/MystenLabs/sui.git sui-test-validator
+```
+
+And verify it's installed with:
+
+```bash
+sui-test-validator -V
+sui-test-validator --help
+```
+
 ## Installation
 
 You can install Scaf with npm. To start a new project and develop Sui Move smart
