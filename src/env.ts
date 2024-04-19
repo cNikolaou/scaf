@@ -15,8 +15,8 @@ let config;
 if (fs.existsSync(userConfigPath)) {
     config = require(userConfigPath);
 } else {
-    const exampleConfig = path.join(__dirname, '../examples/', CONFIG_FILE_NAME);
-    config = require(exampleConfig);
+    const sampleProjectConfig = path.join(__dirname, '../sample-project/', CONFIG_FILE_NAME);
+    config = require(sampleProjectConfig);
 }
 
 export function getClient() {

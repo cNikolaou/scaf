@@ -13,7 +13,7 @@ const GENESIS_FILE_NAME = 'genesis.yaml';
 let genesisFilePath = path.resolve(process.cwd(), GENESIS_FILE_NAME);
 
 if (!fs.existsSync(genesisFilePath)) {
-    genesisFilePath = path.join(__dirname, '../examples', GENESIS_FILE_NAME);
+    genesisFilePath = path.join(__dirname, '../sample-project', GENESIS_FILE_NAME);
 }
 
 const START_LOCAL_NETWORK = `RUST_LOG="off,sui_node=error" sui-test-validator --config-dir sui_local_network`;

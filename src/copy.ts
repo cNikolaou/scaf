@@ -33,6 +33,6 @@ async function copyDirectory(fromDir: string, toDir: string) {
 }
 
 export default async function copy(toDir: string) {
-    const examplesDir = path.join(__dirname, '../examples');
-    await copyDirectory(examplesDir, toDir);
+    const sampleProjectDir = path.join(__dirname, '../sample-project');
+    await copyDirectory(sampleProjectDir, toDir);
 }

@@ -3,7 +3,7 @@
 // Entry point used to select which module to load and run it's `main()`
 // function.
 
-// NOTE: To run scripts from the `examples/` directory and load the
+// NOTE: To run scripts from the `sample-project/` directory and load the
 // dependencies from the `scaf` project, and be able to test them, we are
 // adding a alias from `scaf` to `dist`. This assumes that installing
 // `scaf` as a package, adds the files of `scaf` under a `/node_modules/`

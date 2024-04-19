@@ -31,7 +31,7 @@
   "homepage": "https://github.com/cNikolaou/scaf#readme",
   "files": [
     "dist/",
-    "examples/",
+    "sample-project/",
     "src/",
     "environment.d.ts",
     "LICENSE",
