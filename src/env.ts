@@ -19,13 +19,27 @@ if (fs.existsSync(userConfigPath)) {
     config = require(sampleProjectConfig);
 }
 
+function isURL(endpoint: string) {
+    try {
+        const url = new URL(endpoint);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch {
+        return false;
+    }
+}
+
 export function getClient() {
     // fetch appropriate Sui client based on configuration
 
-    const rpcURL = getFullnodeUrl(config.network);
-    const client = new SuiClient({ url: rpcURL });
+    let rpcURL;
 
-    return client;
+    if (isURL(config.network)) {
+        rpcURL = config.network;
+    } else {
+        rpcURL = getFullnodeUrl(config.network);
+    }
+
+    return new SuiClient({ url: rpcURL });
 }
 
 export function getFaucet() {
