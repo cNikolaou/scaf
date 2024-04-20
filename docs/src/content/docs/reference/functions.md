@@ -35,7 +35,7 @@ Calling the functions returns an `ObjectChanges` object.
 A transaction in Sui results in objects that are being mutated, created, published, and destroyed.
 With the `digest` of a transaction you can create an new `ObjectChanges` object by
 
-```
+```ts
 // ... rest of the code
 
 const txn = await provider.getTransactionBlock({

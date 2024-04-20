@@ -32,7 +32,7 @@ SCHEMA_MANAGER='Ed25519Keypair'
 And then you can create accounts that will be able to sign transactions in a `.js` file under
 `/scripts` by:
 
-```
+```ts
 const { getAccount } = require('@cnikolaou/scaf');
 
 async function main() {

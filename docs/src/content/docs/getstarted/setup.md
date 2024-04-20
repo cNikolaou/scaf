@@ -3,10 +3,10 @@ title: Setup & Run
 description: How to setup and configure Scaf
 ---
 
-After installing Scaf, you can scaffold a project with:
+After installing Scaf, you can scaffold a sample project with:
 
-```
-npx scaf
+```bash
+npx scaf init
 ```
 
 This will create a sample project with the following structure on the current directory:

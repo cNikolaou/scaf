@@ -10,9 +10,13 @@ An `Account` has two fields:
 - `keypair`: object that is used to sign transactions.
 - `address`: the public address for convinient reference.
 
-To create an account use the `getAccount(seed: string, schema: SchemaStr)` function by
-passing the `seed` and the `schema`. The `schema` argument is a string that takes one
-of the followin values:
+To create an account passing the `seed` and the `schema`:
+
+```ts
+const account = new Account(seed: string, schema: SchemaName)
+```
+
+The `schema` argument is a string that takes one of the followin values:
 - `Ed25519Keypair`
 - `Secp256k1Keypair`
 - `Secp256r1Keypair`
@@ -22,10 +26,10 @@ variable on your system that contains the seed phrase. For example, you can use 
 create a `.env` file with the seed phrase (and probably the schema) and then you will get an
 account with:
 
-```
-import { getAccount } from '@cnikolaou/scaf';
+```ts
+import { Account } from '@cnikolaou/scaf';
 
-const account = getAccount(process.env.SEED, process.env.SCHEMA);
+const account = new Account(process.env.SEED, process.env.SCHEMA);
 
 // rest of the script ...
 ```

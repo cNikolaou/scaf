@@ -20,8 +20,8 @@ SEND_TO='PUBLIC-ADDRESS-OF-RECEIVER'
 
 Then run the sample script by:
 
-```
-npx scaf-run scripts/fungibleToken
+```bash
+npx scaf run scripts/fungibleToken.js
 ```
 
 And open the Sui explorer to see the results on the local network:
