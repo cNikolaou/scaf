@@ -1,7 +1,7 @@
 {
   "name": "scaf-docs",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -14,8 +14,8 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.4.1",
-    "astro": "2.7.0",
+    "@astrojs/starlight": "0.21.2",
+    "astro": "4.2.7",
     "sharp": "^0.32.1"
   }
 }
