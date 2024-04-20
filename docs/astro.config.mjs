@@ -5,6 +5,7 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
   integrations: [
     starlight({
+      customCss: ['./src/styles/custom.css'],
       head: [
         {
           tag: 'script',
