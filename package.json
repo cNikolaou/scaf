@@ -38,7 +38,11 @@
     "README.md"
   ],
   "devDependencies": {
+    "@types/chai": "^4.2.0",
+    "@types/mocha": "^10.0.0",
     "@types/node": "^20.3.2",
+    "chai": "^4.2.0",
+    "mocha": "^10.0.0",
     "module-alias": "^2.2.3",
     "typescript": "^5.1.5"
   },
