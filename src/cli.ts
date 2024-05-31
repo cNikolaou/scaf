@@ -39,7 +39,8 @@ async function cli() {
                 await copy(toDir);
                 process.exit(0);
             case 'test':
-                await runTests();
+                const whichTests = args[1] || 'all';
+                await runTests(whichTests);
                 process.exit(0);
             default:
                 console.error('No such option');
