@@ -50,5 +50,9 @@
     "@mysten/sui.js": "^0.51.0",
     "dotenv": "^16.3.1",
     "fs-extra": "^11.1.1"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./chai": "./dist/chai.js"
   }
 }
