@@ -8,6 +8,8 @@ blockchain. With Scaf you can:
 - Manage a project-specific local Sui network for development, testing, and
     simulating interaction.
 
+**NOTE**: If you are interested in a GitHub Action for running tests with Sui Move: [@cNikolaou/test-sui-move](https://github.com/cNikolaou/test-sui-move)
+
 ## Prerequisites
 
 Scaf requires the `sui` CLI for building the Sui Move smart contracts and for
