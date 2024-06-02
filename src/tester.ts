@@ -15,12 +15,14 @@ async function runMochaTests() {
         ui: 'bdd',
     });
 
-    fs.readdirSync(MOCHA_TEST_DIR_NAME).forEach((file) => {
-        if (file.endsWith('.js')) {
-            const fp = path.join('./test', file);
-            mocha.addFile(fp);
-        }
-    });
+    if (fs.existsSync(MOCHA_TEST_DIR_NAME)) {
+        fs.readdirSync(MOCHA_TEST_DIR_NAME).forEach((file) => {
+            if (file.endsWith('.js')) {
+                const fp = path.join('./test', file);
+                mocha.addFile(fp);
+            }
+        });
+    }
 
     console.debug('Running tests with Mocha...');
 
