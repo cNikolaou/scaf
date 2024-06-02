@@ -5,15 +5,12 @@
 module fungible_token::tokename {
 
     // tokenaem
-    use std::option;
     use sui::coin::{Self, Coin, TreasuryCap};
-    use sui::transfer;
-    use sui::tx_context::{Self, TxContext};
 
     // Type for the Name of the coin. By convention, this type has the same
     // name as the parent module, but with capital letters.
     // The full type of the coin defined by this module will be `COIN<TOKENAME>`.
-    struct TOKENAME has drop {}
+    public struct TOKENAME has drop {}
 
     // On module initialisation register the tokename currency by calling
     // coin::create_currency<TOKENAME>. The witness is dropped at the end of

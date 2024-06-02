@@ -1,12 +1,9 @@
 module hello_world::hello_world {
 
     use std::string;
-    use sui::object::{Self, UID};
-    use sui::transfer;
-    use sui::tx_context::{Self, TxContext};
 
     /// An object that contains an arbitrary string
-    struct HelloWorldObject has key, store {
+    public struct HelloWorldObject has key, store {
         /// Global unique ID
         id: UID,
         /// A string contained in the object
@@ -19,5 +16,18 @@ module hello_world::hello_world {
             text: string::utf8(b"Hello World!")
         };
         transfer::transfer(object, tx_context::sender(ctx));
+    }
+
+    #[test]
+    fun do_nothing_test() {
+        let ctx = &mut tx_context::dummy();
+        let hwo = HelloWorldObject {
+            id: object::new(ctx),
+            text: string::utf8(b"Test String")
+        };
+
+        // Destructure the object to delete
+        let HelloWorldObject { id, text: _ } = hwo;
+        id.delete();
     }
 }
