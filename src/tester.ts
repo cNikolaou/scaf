@@ -59,13 +59,20 @@ async function runMoveTests() {
             const child = spawn('sui', ['move', 'test', '--path', pkgPath]);
             console.log('================================');
             console.log(`Tests for package "${pkg}":`);
+
             child.stdout.on('data', (data) => {
                 console.log(data.toString());
             });
+
             child.stderr.on('data', (data) => {
                 console.error(`Error running tests for package "${pkg}":`);
                 console.error(data.toString());
             });
+
+            child.on('error', (error) => {
+                console.error(`error: ${error.message}`);
+            });
+
             await new Promise((resolve) => {
                 child.on('close', resolve);
             });

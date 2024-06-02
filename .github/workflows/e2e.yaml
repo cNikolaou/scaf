@@ -1,0 +1,23 @@
+name: scaf-e2e-test
+
+run-name: Scaf End-to-End Tests
+
+on: [push]
+
+env:
+  NODE_VERSION: 20
+
+jobs:
+  create-sample-project:
+    name: Create sample project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install npm package dependencies
+        run: npm install
+      - name: Compile TS
+        run: npm run build
+      - name: Initialise sample project
+        run: npm run scaf init
+      - name: Run mocha tests
+        run: npm run scaf test mocha
