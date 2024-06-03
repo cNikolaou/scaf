@@ -19,7 +19,7 @@ module hello_world::hello_world {
     }
 
     #[test]
-    fun do_nothing_test() {
+    fun simple_test_example() {
         let ctx = &mut tx_context::dummy();
         let hwo = HelloWorldObject {
             id: object::new(ctx),

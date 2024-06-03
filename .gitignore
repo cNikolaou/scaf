@@ -21,3 +21,4 @@ sui_local_network/
 /packages/
 /scripts/
 /scaf.config.js
+.env.example
