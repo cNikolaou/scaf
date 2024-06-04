@@ -47,6 +47,10 @@ function isDirectory(path: string) {
 }
 
 async function runMoveTests() {
+    if (!fs.existsSync(PACKAGES_DIR_NAME)) {
+        return;
+    }
+
     const packages = fs.readdirSync(PACKAGES_DIR_NAME).filter((name) => {
         const dirPath = path.join(PACKAGES_DIR_NAME, name);
         const manifestFp = path.join(dirPath, 'Move.toml');
