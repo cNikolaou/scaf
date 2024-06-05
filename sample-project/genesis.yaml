@@ -11,11 +11,33 @@ parameters:
   stake_subsidy_period_length: 10
   stake_subsidy_decrease_rate: 1000
 accounts:
-  - address: "0xa34572ebcfc83294b07af7fcdf6db9c35300cccfe20c85142927fca02de177c4"
+  - address: "0xcc3517625bd72edf0d58529e0496eae60467d019cb60af09bbb272aba719adf6"
     gas_amounts:
-      - 10000000000000000
-      - 10000000000000000
-      - 10000000000000000
-  - address: "0xe893d1db1f5dbe930d45cdaf32ccca038ae695571fa620bc018f0b658afc5f56"
+      - 30000000000000000
+  - address: "0xf775ce8c16a240b721d272c523faaca683be1cc3ac194f2123c1d527131d666b"
+    gas_amounts:
+      - 30000000000000000
+  - address: "0xbedb4f957b8b819dc69dea96c0e2630ecff34030282b23fef30dc19c7ff1361b"
+    gas_amounts:
+      - 30000000000000000
+  - address: "0x475b8affdbfb727b2a4b5dd1a1e273519c6716fb404aba4a1816e7fe39248e93"
+    gas_amounts:
+      - 30000000000000000
+  - address: "0x8fdc7bad93f0392c646067d9bc9e7dfa3599e075a4a2c74adaa8f06f92e73151"
+    gas_amounts:
+      - 30000000000000000
+  - address: "0x8b1c53bebeb4cf507a4759458871963f0a5c585885545356a206280a3405cfd3"
+    gas_amounts:
+      - 30000000000000000
+  - address: "0x35bbd51eeb1a510ab693c9526c846c233b45ac120a0fc745d1d5d56a19c71091"
+    gas_amounts:
+      - 30000000000000000
+  - address: "0xa95e95190ae77ff323e29c068d1ef110db099ea184768d939bc983922c7b8747"
+    gas_amounts:
+      - 30000000000000000
+  - address: "0xe45d7628f46bcef71f9e664286e75d80b0f58a348327878e5cf9f11029b09a96"
+    gas_amounts:
+      - 30000000000000000
+  - address: "0x9da50df30dcc1d4976531e77f37c8c0987dd517a5da15591019990f0239ef232"
     gas_amounts:
       - 30000000000000000

@@ -35,6 +35,18 @@ function coinData(coin: {
     );
 }
 
+export async function getOwnedObjects(address: string) {
+    const objects = await client.getOwnedObjects({
+        owner: address,
+    });
+
+    const objectIds = objects.data.map((obj) => {
+        return obj.data.objectId;
+    });
+
+    return objectIds;
+}
+
 export async function showOwnership(address: string) {
     // find out what the address owns
     let separator = '-'.repeat(80);
