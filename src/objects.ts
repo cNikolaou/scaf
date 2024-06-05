@@ -159,11 +159,13 @@ export async function moveCall(
     packageId: string,
     module: string,
     targetFunction: string,
+    gasBudget: number = 100000000,
     args: string[] = [],
 ) {
     // Call Move function `targetFunction` which is in `module` module of `package`
 
     const tx = new TransactionBlock();
+    tx.setGasBudget(gasBudget);
     tx.moveCall({
         target: `${packageId}::${module}::${targetFunction}`,
         arguments: args.length > 0 ? args.map((arg) => tx.pure(arg)) : [],
