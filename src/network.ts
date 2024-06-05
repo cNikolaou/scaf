@@ -10,14 +10,24 @@ import http from 'http';
 import { execSync, spawn, ChildProcess } from 'child_process';
 
 const GENESIS_FILE_NAME = 'genesis.yaml';
+const LOCAL_NETWORK_DIR = 'sui_local_network';
+
 let genesisFilePath = path.resolve(process.cwd(), GENESIS_FILE_NAME);
 
 if (!fs.existsSync(genesisFilePath)) {
     genesisFilePath = path.join(__dirname, '../sample-project', GENESIS_FILE_NAME);
 }
 
-const START_LOCAL_NETWORK = `RUST_LOG="off,sui_node=error" sui-test-validator --config-dir sui_local_network`;
-const RESET_LOCAL_NETWORK = `sui genesis --from-config ${genesisFilePath} --working-dir sui_local_network/ -f --with-faucet`;
+const START_LOCAL_NETWORK = (localNetworkDir = LOCAL_NETWORK_DIR) => {
+    return `RUST_LOG="off,sui_node=error" sui-test-validator --config-dir ${localNetworkDir}`;
+};
+
+const RESET_LOCAL_NETWORK = (
+    localNetworkDir = LOCAL_NETWORK_DIR,
+    genesisFilePath = GENESIS_FILE_NAME,
+) => {
+    return `sui genesis --from-config ${genesisFilePath} --working-dir ${localNetworkDir}/ -f --with-faucet`;
+};
 
 const CHECK_NETWORK_UP_INTERVAL = 2000;
 
@@ -28,13 +38,22 @@ export class Network {
     networkResetProcess: ChildProcess | null = null;
     networkRunProcess: ChildProcess | null = null;
 
+    genesisFilePath: string;
+    localNetworkDir: string;
+
     private static networkInstance;
 
-    private constructor() {}
+    private constructor(localNetworkDir = LOCAL_NETWORK_DIR, genesisFilePath = GENESIS_FILE_NAME) {
+        this.localNetworkDir = localNetworkDir;
+        this.genesisFilePath = genesisFilePath;
+    }
 
-    public static getNetwork(): Network {
+    public static getNetwork(
+        localNetworkDir = LOCAL_NETWORK_DIR,
+        genesisFilePath = GENESIS_FILE_NAME,
+    ): Network {
         if (!Network.networkInstance) {
-            Network.networkInstance = new Network();
+            Network.networkInstance = new Network(localNetworkDir, genesisFilePath);
         }
         return Network.networkInstance;
     }
@@ -45,24 +64,27 @@ export class Network {
         //  - removing the (potentially existing) network state from the
         //    `sui_local_network` directory
 
-        console.log('* Resetting local network...');
+        console.log('>> Resetting local network...');
 
         // synchronously create the `sui_local_network` directory if it doesn't exist
         execSync('mkdir -p sui_local_network');
 
         // start process that resets the local network state
-        const RESET_LOCAL_NETWORK_PARTS = RESET_LOCAL_NETWORK.split(' ');
+        const RESET_LOCAL_NETWORK_PARTS = RESET_LOCAL_NETWORK(
+            this.localNetworkDir,
+            this.genesisFilePath,
+        ).split(' ');
         this.networkResetProcess = spawn(
             RESET_LOCAL_NETWORK_PARTS[0],
             RESET_LOCAL_NETWORK_PARTS.splice(1),
         );
 
         this.networkResetProcess.stdout.on('data', (data) => {
-            console.log(`Local network reset stdout: ${data}`);
+            console.log(`Local network reset STDOUT: ${data}`);
         });
 
         this.networkResetProcess.stderr.on('data', (data) => {
-            console.error(`Local network reset stderr: ${data}`);
+            console.error(`Local network reset STDERR: ${data}`);
         });
 
         this.networkResetProcess.on('close', (code) => {
@@ -74,7 +96,7 @@ export class Network {
     }
 
     start() {
-        const START_LOCAL_NETWORK_PARTS = START_LOCAL_NETWORK.split(' ');
+        const START_LOCAL_NETWORK_PARTS = START_LOCAL_NETWORK(this.localNetworkDir).split(' ');
 
         this.networkRunProcess = spawn(
             START_LOCAL_NETWORK_PARTS[1],
@@ -83,11 +105,11 @@ export class Network {
         );
 
         // this.networkRunProcess.stdout.on('data', (data) => {
-        //     console.log(`Local network start stdout: ${data}`);
+        //     console.log(`Local network start STDOUT: ${data}`);
         // });
 
         this.networkRunProcess.stderr.on('data', (data) => {
-            console.error(`Local network start stderr: ${data}`);
+            console.error(`Local network start STDERR: ${data}`);
         });
 
         this.networkRunProcess.on('close', (code) => {
@@ -102,12 +124,12 @@ export class Network {
 
         if (this.networkResetProcess !== null) {
             this.networkResetProcess.on('close', () => {
-                console.log('* Starting local network (after restart)...');
+                console.log('>> Starting local network (after restart)...');
                 this.start();
             });
         } else if (!this.networkRunProcess) {
             try {
-                console.log('* Starting local network');
+                console.log('>> Starting local network');
                 this.start();
             } catch (error) {
                 console.error('Error while spawining the start network process:', error);
@@ -120,6 +142,7 @@ export class Network {
     public stopNetwork() {
         if (this.networkRunProcess) {
             this.networkRunProcess.kill();
+            console.log('Stopped local network');
         } else {
             console.warn('Local network was NOT running');
         }
