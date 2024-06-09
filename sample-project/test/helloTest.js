@@ -1,4 +1,4 @@
-const { expect } = require('scafsui/chai');
+const { expect } = require('@cnikolaou/scaf/chai');
 
 const {
     buildAndPublishPackage,

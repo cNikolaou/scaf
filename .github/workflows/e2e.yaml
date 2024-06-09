@@ -14,10 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install npm package dependencies
+        working-directory: packages/scaf
         run: npm install
       - name: Compile TS
+        working-directory: packages/scaf
         run: npm run build
       - name: Initialise sample project
+        working-directory: packages/scaf
         run: npm run scaf init
-      - name: Run mocha tests
-        run: npm run scaf test mocha

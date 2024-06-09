@@ -18,7 +18,6 @@ sui_local_network/
 
 # files created by
 /genesis.yaml
-/packages/
 /scripts/
 /scaf.config.js
 .env.example
