@@ -13,12 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install npm package dependencies
-        working-directory: packages/scaf
-        run: npm install
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.0.0
+
+      - name: Set up Node version to 20
+        uses: action/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Compile TS
-        working-directory: packages/scaf
         run: npm run build
+
       - name: Initialise sample project
         working-directory: packages/scaf
         run: npm run scaf init

@@ -1,0 +1,10 @@
+{
+  "name": "scaf-monorepo",
+  "version": "0.0.0",
+  "description": "monorepo for scaf",
+  "private": true,
+  "scripts": {
+    "build": "pnpm --filter=scafsui build"
+  },
+  "packageManager": "pnpm@9.2.0"
+}
