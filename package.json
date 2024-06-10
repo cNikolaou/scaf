@@ -4,7 +4,7 @@
   "description": "monorepo for scaf",
   "private": true,
   "scripts": {
-    "build": "pnpm --filter=scafsui build"
+    "build": "pnpm --filter=scaf build"
   },
   "packageManager": "pnpm@9.2.0"
 }

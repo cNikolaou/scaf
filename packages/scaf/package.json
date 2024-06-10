@@ -19,13 +19,6 @@
   "bugs": {
     "url": "https://github.com/cNikolaou/scaf/issues"
   },
-  "prettier": {
-    "printWidth": 100,
-    "tabWidth": 4,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "all"
-  },
   "_moduleAliases": {
     "@cnikolaou/scaf": "dist"
   },

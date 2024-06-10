@@ -2,13 +2,20 @@
   "printWidth": 100,
   "semi": true,
   "singleQuote": true,
-  "tabWidth": 2,
+  "tabWidth": 4,
   "trailingComma": "all",
   "overrides": [
     {
       "files": ["*.yml", "*.yaml"],
       "options": {
-        "singleQuote": false
+        "singleQuote": false,
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": ["*json", ".prettierrc.json"],
+      "options": {
+        "tabWidth": 2
       }
     }
   ]
