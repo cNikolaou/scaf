@@ -34,4 +34,6 @@ jobs:
         run: pnpm build
 
       - name: Initialise sample project
+        # workaround for the  "moduleResolution": "node" issue is fixed
+        if: always()
         run: pnpm --filter=scaf scaf init

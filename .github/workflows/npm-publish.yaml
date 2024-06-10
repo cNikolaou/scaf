@@ -31,7 +31,7 @@ jobs:
         run: pnpm build
 
       - name: Publish package
-        run: pnpm --filter=scaf publish --access public
+        run: pnpm --filter=scaf publish --access public --no-git-checks
         # workaround for the  "moduleResolution": "node" issue is fixed
         if: always()
         env:

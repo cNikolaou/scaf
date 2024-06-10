@@ -17,7 +17,9 @@ sui_local_network/
 .DS_Store
 
 # files created by
-/genesis.yaml
-/scripts/
-/scaf.config.js
-.env.example
+packages/scaf/genesis.yaml
+packages/scaf/scripts/
+packages/scaf/packages/
+packages/scaf/test/
+packages/scaf/scaf.config.js
+packages/scaf/.env.example
