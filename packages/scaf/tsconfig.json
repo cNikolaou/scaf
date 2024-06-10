@@ -1,11 +1,15 @@
 {
     "compilerOptions": {
-        "moduleResolution": "node",
-        "module": "Node16",
+        "target": "es6",
+        "module": "CommonJS",
+        "declaration": true,
+        "esModuleInterop": true,
+
         "rootDir": "src",
         "outDir": "dist"
     },
     "exclude": [
-        "docs/",
+        "node_modules/",
+        "dist/"
     ]
 }
