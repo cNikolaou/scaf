@@ -32,6 +32,7 @@ jobs:
 
       - name: Publish package
         run: pnpm --filter=scaf publish --access public
+        # workaround for the  "moduleResolution": "node" issue is fixed
         if: always()
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
